@@ -120,24 +120,6 @@ public class TransferDetailsQueryService extends QueryService<TransferDetails> {
             if (criteria.getIsActive() != null) {
                 specification = specification.and(buildSpecification(criteria.getIsActive(), TransferDetails_.isActive));
             }
-            if (criteria.getTranferDetailsApprovalsId() != null) {
-                specification =
-                    specification.and(
-                        buildSpecification(
-                            criteria.getTranferDetailsApprovalsId(),
-                            root -> root.join(TransferDetails_.tranferDetailsApprovals, JoinType.LEFT).get(TranferDetailsApprovals_.id)
-                        )
-                    );
-            }
-            if (criteria.getTranferRecievedId() != null) {
-                specification =
-                    specification.and(
-                        buildSpecification(
-                            criteria.getTranferRecievedId(),
-                            root -> root.join(TransferDetails_.tranferRecieveds, JoinType.LEFT).get(TranferRecieved_.id)
-                        )
-                    );
-            }
             if (criteria.getTransferId() != null) {
                 specification =
                     specification.and(

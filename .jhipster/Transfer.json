@@ -66,6 +66,18 @@
       "relationshipType": "one-to-many"
     },
     {
+      "otherEntityName": "tranferDetailsApprovals",
+      "otherEntityRelationshipName": "transfer",
+      "relationshipName": "tranferDetailsApprovals",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "tranferRecieved",
+      "otherEntityRelationshipName": "transfer",
+      "relationshipName": "tranferRecieved",
+      "relationshipType": "one-to-many"
+    },
+    {
       "otherEntityName": "rmInventory",
       "otherEntityRelationshipName": "transfer",
       "relationshipName": "rmInventory",

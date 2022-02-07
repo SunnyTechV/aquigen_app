@@ -30,6 +30,8 @@
       "lastModifiedBy": "Last Modified By",
       "securityUser": "Security User",
       "transferDetails": "Transfer Details",
+      "tranferDetailsApprovals": "Tranfer Details Approvals",
+      "tranferRecieved": "Tranfer Recieved",
       "rmInventory": "Rm Inventory"
     }
   }

@@ -1,6 +1,8 @@
 import dayjs from 'dayjs/esm';
 import { ISecurityUser } from 'app/entities/security-user/security-user.model';
 import { ITransferDetails } from 'app/entities/transfer-details/transfer-details.model';
+import { ITranferDetailsApprovals } from 'app/entities/tranfer-details-approvals/tranfer-details-approvals.model';
+import { ITranferRecieved } from 'app/entities/tranfer-recieved/tranfer-recieved.model';
 import { IRmInventory } from 'app/entities/rm-inventory/rm-inventory.model';
 import { Status } from 'app/entities/enumerations/status.model';
 
@@ -18,6 +20,8 @@ export interface ITransfer {
   lastModifiedBy?: string | null;
   securityUsers?: ISecurityUser[] | null;
   transferDetails?: ITransferDetails[] | null;
+  tranferDetailsApprovals?: ITranferDetailsApprovals[] | null;
+  tranferRecieveds?: ITranferRecieved[] | null;
   rmInventory?: IRmInventory | null;
 }
 
@@ -36,6 +40,8 @@ export class Transfer implements ITransfer {
     public lastModifiedBy?: string | null,
     public securityUsers?: ISecurityUser[] | null,
     public transferDetails?: ITransferDetails[] | null,
+    public tranferDetailsApprovals?: ITranferDetailsApprovals[] | null,
+    public tranferRecieveds?: ITranferRecieved[] | null,
     public rmInventory?: IRmInventory | null
   ) {
     this.isApproved = this.isApproved ?? false;

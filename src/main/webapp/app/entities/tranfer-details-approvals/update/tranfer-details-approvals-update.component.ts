@@ -10,8 +10,8 @@ import { DATE_TIME_FORMAT } from 'app/config/input.constants';
 
 import { ITranferDetailsApprovals, TranferDetailsApprovals } from '../tranfer-details-approvals.model';
 import { TranferDetailsApprovalsService } from '../service/tranfer-details-approvals.service';
-import { ITransferDetails } from 'app/entities/transfer-details/transfer-details.model';
-import { TransferDetailsService } from 'app/entities/transfer-details/service/transfer-details.service';
+import { ITransfer } from 'app/entities/transfer/transfer.model';
+import { TransferService } from 'app/entities/transfer/service/transfer.service';
 
 @Component({
   selector: 'jhi-tranfer-details-approvals-update',
@@ -20,7 +20,7 @@ import { TransferDetailsService } from 'app/entities/transfer-details/service/tr
 export class TranferDetailsApprovalsUpdateComponent implements OnInit {
   isSaving = false;
 
-  transferDetailsSharedCollection: ITransferDetails[] = [];
+  transfersSharedCollection: ITransfer[] = [];
 
   editForm = this.fb.group({
     id: [],
@@ -35,12 +35,12 @@ export class TranferDetailsApprovalsUpdateComponent implements OnInit {
     lastModifiedBy: [],
     isDeleted: [],
     isActive: [],
-    transferDetails: [],
+    transfer: [],
   });
 
   constructor(
     protected tranferDetailsApprovalsService: TranferDetailsApprovalsService,
-    protected transferDetailsService: TransferDetailsService,
+    protected transferService: TransferService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
   ) {}
@@ -73,7 +73,7 @@ export class TranferDetailsApprovalsUpdateComponent implements OnInit {
     }
   }
 
-  trackTransferDetailsById(index: number, item: ITransferDetails): number {
+  trackTransferById(index: number, item: ITransfer): number {
     return item.id!;
   }
 
@@ -110,25 +110,25 @@ export class TranferDetailsApprovalsUpdateComponent implements OnInit {
       lastModifiedBy: tranferDetailsApprovals.lastModifiedBy,
       isDeleted: tranferDetailsApprovals.isDeleted,
       isActive: tranferDetailsApprovals.isActive,
-      transferDetails: tranferDetailsApprovals.transferDetails,
+      transfer: tranferDetailsApprovals.transfer,
     });
 
-    this.transferDetailsSharedCollection = this.transferDetailsService.addTransferDetailsToCollectionIfMissing(
-      this.transferDetailsSharedCollection,
-      tranferDetailsApprovals.transferDetails
+    this.transfersSharedCollection = this.transferService.addTransferToCollectionIfMissing(
+      this.transfersSharedCollection,
+      tranferDetailsApprovals.transfer
     );
   }
 
   protected loadRelationshipsOptions(): void {
-    this.transferDetailsService
+    this.transferService
       .query()
-      .pipe(map((res: HttpResponse<ITransferDetails[]>) => res.body ?? []))
+      .pipe(map((res: HttpResponse<ITransfer[]>) => res.body ?? []))
       .pipe(
-        map((transferDetails: ITransferDetails[]) =>
-          this.transferDetailsService.addTransferDetailsToCollectionIfMissing(transferDetails, this.editForm.get('transferDetails')!.value)
+        map((transfers: ITransfer[]) =>
+          this.transferService.addTransferToCollectionIfMissing(transfers, this.editForm.get('transfer')!.value)
         )
       )
-      .subscribe((transferDetails: ITransferDetails[]) => (this.transferDetailsSharedCollection = transferDetails));
+      .subscribe((transfers: ITransfer[]) => (this.transfersSharedCollection = transfers));
   }
 
   protected createFromForm(): ITranferDetailsApprovals {
@@ -150,7 +150,7 @@ export class TranferDetailsApprovalsUpdateComponent implements OnInit {
       lastModifiedBy: this.editForm.get(['lastModifiedBy'])!.value,
       isDeleted: this.editForm.get(['isDeleted'])!.value,
       isActive: this.editForm.get(['isActive'])!.value,
-      transferDetails: this.editForm.get(['transferDetails'])!.value,
+      transfer: this.editForm.get(['transfer'])!.value,
     };
   }
 }

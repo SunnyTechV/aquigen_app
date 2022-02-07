@@ -11,9 +11,4 @@ import org.mapstruct.*;
 public interface TransferDetailsMapper extends EntityMapper<TransferDetailsDTO, TransferDetails> {
     @Mapping(target = "transfer", source = "transfer", qualifiedByName = "id")
     TransferDetailsDTO toDto(TransferDetails s);
-
-    @Named("id")
-    @BeanMapping(ignoreByDefault = true)
-    @Mapping(target = "id", source = "id")
-    TransferDetailsDTO toDtoId(TransferDetails transferDetails);
 }

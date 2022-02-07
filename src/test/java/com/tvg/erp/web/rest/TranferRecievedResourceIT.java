@@ -7,7 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.tvg.erp.IntegrationTest;
 import com.tvg.erp.domain.TranferRecieved;
-import com.tvg.erp.domain.TransferDetails;
+import com.tvg.erp.domain.Transfer;
 import com.tvg.erp.repository.TranferRecievedRepository;
 import com.tvg.erp.service.criteria.TranferRecievedCriteria;
 import com.tvg.erp.service.dto.TranferRecievedDTO;
@@ -1092,28 +1092,28 @@ class TranferRecievedResourceIT {
 
     @Test
     @Transactional
-    void getAllTranferRecievedsByTransferDetailsIsEqualToSomething() throws Exception {
+    void getAllTranferRecievedsByTransferIsEqualToSomething() throws Exception {
         // Initialize the database
         tranferRecievedRepository.saveAndFlush(tranferRecieved);
-        TransferDetails transferDetails;
-        if (TestUtil.findAll(em, TransferDetails.class).isEmpty()) {
-            transferDetails = TransferDetailsResourceIT.createEntity(em);
-            em.persist(transferDetails);
+        Transfer transfer;
+        if (TestUtil.findAll(em, Transfer.class).isEmpty()) {
+            transfer = TransferResourceIT.createEntity(em);
+            em.persist(transfer);
             em.flush();
         } else {
-            transferDetails = TestUtil.findAll(em, TransferDetails.class).get(0);
+            transfer = TestUtil.findAll(em, Transfer.class).get(0);
         }
-        em.persist(transferDetails);
+        em.persist(transfer);
         em.flush();
-        tranferRecieved.setTransferDetails(transferDetails);
+        tranferRecieved.setTransfer(transfer);
         tranferRecievedRepository.saveAndFlush(tranferRecieved);
-        Long transferDetailsId = transferDetails.getId();
+        Long transferId = transfer.getId();
 
-        // Get all the tranferRecievedList where transferDetails equals to transferDetailsId
-        defaultTranferRecievedShouldBeFound("transferDetailsId.equals=" + transferDetailsId);
+        // Get all the tranferRecievedList where transfer equals to transferId
+        defaultTranferRecievedShouldBeFound("transferId.equals=" + transferId);
 
-        // Get all the tranferRecievedList where transferDetails equals to (transferDetailsId + 1)
-        defaultTranferRecievedShouldNotBeFound("transferDetailsId.equals=" + (transferDetailsId + 1));
+        // Get all the tranferRecievedList where transfer equals to (transferId + 1)
+        defaultTranferRecievedShouldNotBeFound("transferId.equals=" + (transferId + 1));
     }
 
     /**

@@ -33,7 +33,7 @@ public class TranferRecievedDTO implements Serializable {
 
     private Boolean isActive;
 
-    private TransferDetailsDTO transferDetails;
+    private TransferDTO transfer;
 
     public Long getId() {
         return id;
@@ -131,12 +131,12 @@ public class TranferRecievedDTO implements Serializable {
         this.isActive = isActive;
     }
 
-    public TransferDetailsDTO getTransferDetails() {
-        return transferDetails;
+    public TransferDTO getTransfer() {
+        return transfer;
     }
 
-    public void setTransferDetails(TransferDetailsDTO transferDetails) {
-        this.transferDetails = transferDetails;
+    public void setTransfer(TransferDTO transfer) {
+        this.transfer = transfer;
     }
 
     @Override
@@ -176,7 +176,7 @@ public class TranferRecievedDTO implements Serializable {
             ", lastModifiedBy='" + getLastModifiedBy() + "'" +
             ", isDeleted='" + getIsDeleted() + "'" +
             ", isActive='" + getIsActive() + "'" +
-            ", transferDetails=" + getTransferDetails() +
+            ", transfer=" + getTransfer() +
             "}";
     }
 }

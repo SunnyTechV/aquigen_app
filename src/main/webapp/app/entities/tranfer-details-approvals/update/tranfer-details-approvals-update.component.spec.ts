@@ -8,8 +8,8 @@ import { of, Subject, from } from 'rxjs';
 
 import { TranferDetailsApprovalsService } from '../service/tranfer-details-approvals.service';
 import { ITranferDetailsApprovals, TranferDetailsApprovals } from '../tranfer-details-approvals.model';
-import { ITransferDetails } from 'app/entities/transfer-details/transfer-details.model';
-import { TransferDetailsService } from 'app/entities/transfer-details/service/transfer-details.service';
+import { ITransfer } from 'app/entities/transfer/transfer.model';
+import { TransferService } from 'app/entities/transfer/service/transfer.service';
 
 import { TranferDetailsApprovalsUpdateComponent } from './tranfer-details-approvals-update.component';
 
@@ -18,7 +18,7 @@ describe('TranferDetailsApprovals Management Update Component', () => {
   let fixture: ComponentFixture<TranferDetailsApprovalsUpdateComponent>;
   let activatedRoute: ActivatedRoute;
   let tranferDetailsApprovalsService: TranferDetailsApprovalsService;
-  let transferDetailsService: TransferDetailsService;
+  let transferService: TransferService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -40,44 +40,41 @@ describe('TranferDetailsApprovals Management Update Component', () => {
     fixture = TestBed.createComponent(TranferDetailsApprovalsUpdateComponent);
     activatedRoute = TestBed.inject(ActivatedRoute);
     tranferDetailsApprovalsService = TestBed.inject(TranferDetailsApprovalsService);
-    transferDetailsService = TestBed.inject(TransferDetailsService);
+    transferService = TestBed.inject(TransferService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should call TransferDetails query and add missing value', () => {
+    it('Should call Transfer query and add missing value', () => {
       const tranferDetailsApprovals: ITranferDetailsApprovals = { id: 456 };
-      const transferDetails: ITransferDetails = { id: 22592 };
-      tranferDetailsApprovals.transferDetails = transferDetails;
+      const transfer: ITransfer = { id: 49802 };
+      tranferDetailsApprovals.transfer = transfer;
 
-      const transferDetailsCollection: ITransferDetails[] = [{ id: 70252 }];
-      jest.spyOn(transferDetailsService, 'query').mockReturnValue(of(new HttpResponse({ body: transferDetailsCollection })));
-      const additionalTransferDetails = [transferDetails];
-      const expectedCollection: ITransferDetails[] = [...additionalTransferDetails, ...transferDetailsCollection];
-      jest.spyOn(transferDetailsService, 'addTransferDetailsToCollectionIfMissing').mockReturnValue(expectedCollection);
+      const transferCollection: ITransfer[] = [{ id: 40651 }];
+      jest.spyOn(transferService, 'query').mockReturnValue(of(new HttpResponse({ body: transferCollection })));
+      const additionalTransfers = [transfer];
+      const expectedCollection: ITransfer[] = [...additionalTransfers, ...transferCollection];
+      jest.spyOn(transferService, 'addTransferToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ tranferDetailsApprovals });
       comp.ngOnInit();
 
-      expect(transferDetailsService.query).toHaveBeenCalled();
-      expect(transferDetailsService.addTransferDetailsToCollectionIfMissing).toHaveBeenCalledWith(
-        transferDetailsCollection,
-        ...additionalTransferDetails
-      );
-      expect(comp.transferDetailsSharedCollection).toEqual(expectedCollection);
+      expect(transferService.query).toHaveBeenCalled();
+      expect(transferService.addTransferToCollectionIfMissing).toHaveBeenCalledWith(transferCollection, ...additionalTransfers);
+      expect(comp.transfersSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should update editForm', () => {
       const tranferDetailsApprovals: ITranferDetailsApprovals = { id: 456 };
-      const transferDetails: ITransferDetails = { id: 54003 };
-      tranferDetailsApprovals.transferDetails = transferDetails;
+      const transfer: ITransfer = { id: 13190 };
+      tranferDetailsApprovals.transfer = transfer;
 
       activatedRoute.data = of({ tranferDetailsApprovals });
       comp.ngOnInit();
 
       expect(comp.editForm.value).toEqual(expect.objectContaining(tranferDetailsApprovals));
-      expect(comp.transferDetailsSharedCollection).toContain(transferDetails);
+      expect(comp.transfersSharedCollection).toContain(transfer);
     });
   });
 
@@ -146,10 +143,10 @@ describe('TranferDetailsApprovals Management Update Component', () => {
   });
 
   describe('Tracking relationships identifiers', () => {
-    describe('trackTransferDetailsById', () => {
-      it('Should return tracked TransferDetails primary key', () => {
+    describe('trackTransferById', () => {
+      it('Should return tracked Transfer primary key', () => {
         const entity = { id: 123 };
-        const trackResult = comp.trackTransferDetailsById(0, entity);
+        const trackResult = comp.trackTransferById(0, entity);
         expect(trackResult).toEqual(entity.id);
       });
     });

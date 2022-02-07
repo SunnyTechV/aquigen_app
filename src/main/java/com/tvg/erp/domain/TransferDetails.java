@@ -3,8 +3,6 @@ package com.tvg.erp.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -54,18 +52,11 @@ public class TransferDetails implements Serializable {
     @Column(name = "is_active")
     private Boolean isActive;
 
-    @OneToMany(mappedBy = "transferDetails")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "transferDetails" }, allowSetters = true)
-    private Set<TranferDetailsApprovals> tranferDetailsApprovals = new HashSet<>();
-
-    @OneToMany(mappedBy = "transferDetails")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "transferDetails" }, allowSetters = true)
-    private Set<TranferRecieved> tranferRecieveds = new HashSet<>();
-
     @ManyToOne
-    @JsonIgnoreProperties(value = { "securityUsers", "transferDetails", "rmInventory" }, allowSetters = true)
+    @JsonIgnoreProperties(
+        value = { "securityUsers", "transferDetails", "tranferDetailsApprovals", "tranferRecieveds", "rmInventory" },
+        allowSetters = true
+    )
     private Transfer transfer;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -211,68 +202,6 @@ public class TransferDetails implements Serializable {
 
     public void setIsActive(Boolean isActive) {
         this.isActive = isActive;
-    }
-
-    public Set<TranferDetailsApprovals> getTranferDetailsApprovals() {
-        return this.tranferDetailsApprovals;
-    }
-
-    public void setTranferDetailsApprovals(Set<TranferDetailsApprovals> tranferDetailsApprovals) {
-        if (this.tranferDetailsApprovals != null) {
-            this.tranferDetailsApprovals.forEach(i -> i.setTransferDetails(null));
-        }
-        if (tranferDetailsApprovals != null) {
-            tranferDetailsApprovals.forEach(i -> i.setTransferDetails(this));
-        }
-        this.tranferDetailsApprovals = tranferDetailsApprovals;
-    }
-
-    public TransferDetails tranferDetailsApprovals(Set<TranferDetailsApprovals> tranferDetailsApprovals) {
-        this.setTranferDetailsApprovals(tranferDetailsApprovals);
-        return this;
-    }
-
-    public TransferDetails addTranferDetailsApprovals(TranferDetailsApprovals tranferDetailsApprovals) {
-        this.tranferDetailsApprovals.add(tranferDetailsApprovals);
-        tranferDetailsApprovals.setTransferDetails(this);
-        return this;
-    }
-
-    public TransferDetails removeTranferDetailsApprovals(TranferDetailsApprovals tranferDetailsApprovals) {
-        this.tranferDetailsApprovals.remove(tranferDetailsApprovals);
-        tranferDetailsApprovals.setTransferDetails(null);
-        return this;
-    }
-
-    public Set<TranferRecieved> getTranferRecieveds() {
-        return this.tranferRecieveds;
-    }
-
-    public void setTranferRecieveds(Set<TranferRecieved> tranferRecieveds) {
-        if (this.tranferRecieveds != null) {
-            this.tranferRecieveds.forEach(i -> i.setTransferDetails(null));
-        }
-        if (tranferRecieveds != null) {
-            tranferRecieveds.forEach(i -> i.setTransferDetails(this));
-        }
-        this.tranferRecieveds = tranferRecieveds;
-    }
-
-    public TransferDetails tranferRecieveds(Set<TranferRecieved> tranferRecieveds) {
-        this.setTranferRecieveds(tranferRecieveds);
-        return this;
-    }
-
-    public TransferDetails addTranferRecieved(TranferRecieved tranferRecieved) {
-        this.tranferRecieveds.add(tranferRecieved);
-        tranferRecieved.setTransferDetails(this);
-        return this;
-    }
-
-    public TransferDetails removeTranferRecieved(TranferRecieved tranferRecieved) {
-        this.tranferRecieveds.remove(tranferRecieved);
-        tranferRecieved.setTransferDetails(null);
-        return this;
     }
 
     public Transfer getTransfer() {

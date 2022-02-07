@@ -78,8 +78,18 @@ public class Transfer implements Serializable {
 
     @OneToMany(mappedBy = "transfer")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "tranferDetailsApprovals", "tranferRecieveds", "transfer" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "transfer" }, allowSetters = true)
     private Set<TransferDetails> transferDetails = new HashSet<>();
+
+    @OneToMany(mappedBy = "transfer")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "transfer" }, allowSetters = true)
+    private Set<TranferDetailsApprovals> tranferDetailsApprovals = new HashSet<>();
+
+    @OneToMany(mappedBy = "transfer")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "transfer" }, allowSetters = true)
+    private Set<TranferRecieved> tranferRecieveds = new HashSet<>();
 
     @ManyToOne
     @JsonIgnoreProperties(value = { "transfers", "purchaseOrders", "consumptionDetails" }, allowSetters = true)
@@ -289,6 +299,68 @@ public class Transfer implements Serializable {
     public Transfer removeTransferDetails(TransferDetails transferDetails) {
         this.transferDetails.remove(transferDetails);
         transferDetails.setTransfer(null);
+        return this;
+    }
+
+    public Set<TranferDetailsApprovals> getTranferDetailsApprovals() {
+        return this.tranferDetailsApprovals;
+    }
+
+    public void setTranferDetailsApprovals(Set<TranferDetailsApprovals> tranferDetailsApprovals) {
+        if (this.tranferDetailsApprovals != null) {
+            this.tranferDetailsApprovals.forEach(i -> i.setTransfer(null));
+        }
+        if (tranferDetailsApprovals != null) {
+            tranferDetailsApprovals.forEach(i -> i.setTransfer(this));
+        }
+        this.tranferDetailsApprovals = tranferDetailsApprovals;
+    }
+
+    public Transfer tranferDetailsApprovals(Set<TranferDetailsApprovals> tranferDetailsApprovals) {
+        this.setTranferDetailsApprovals(tranferDetailsApprovals);
+        return this;
+    }
+
+    public Transfer addTranferDetailsApprovals(TranferDetailsApprovals tranferDetailsApprovals) {
+        this.tranferDetailsApprovals.add(tranferDetailsApprovals);
+        tranferDetailsApprovals.setTransfer(this);
+        return this;
+    }
+
+    public Transfer removeTranferDetailsApprovals(TranferDetailsApprovals tranferDetailsApprovals) {
+        this.tranferDetailsApprovals.remove(tranferDetailsApprovals);
+        tranferDetailsApprovals.setTransfer(null);
+        return this;
+    }
+
+    public Set<TranferRecieved> getTranferRecieveds() {
+        return this.tranferRecieveds;
+    }
+
+    public void setTranferRecieveds(Set<TranferRecieved> tranferRecieveds) {
+        if (this.tranferRecieveds != null) {
+            this.tranferRecieveds.forEach(i -> i.setTransfer(null));
+        }
+        if (tranferRecieveds != null) {
+            tranferRecieveds.forEach(i -> i.setTransfer(this));
+        }
+        this.tranferRecieveds = tranferRecieveds;
+    }
+
+    public Transfer tranferRecieveds(Set<TranferRecieved> tranferRecieveds) {
+        this.setTranferRecieveds(tranferRecieveds);
+        return this;
+    }
+
+    public Transfer addTranferRecieved(TranferRecieved tranferRecieved) {
+        this.tranferRecieveds.add(tranferRecieved);
+        tranferRecieved.setTransfer(this);
+        return this;
+    }
+
+    public Transfer removeTranferRecieved(TranferRecieved tranferRecieved) {
+        this.tranferRecieveds.remove(tranferRecieved);
+        tranferRecieved.setTransfer(null);
         return this;
     }
 

@@ -7,7 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.tvg.erp.IntegrationTest;
 import com.tvg.erp.domain.TranferDetailsApprovals;
-import com.tvg.erp.domain.TransferDetails;
+import com.tvg.erp.domain.Transfer;
 import com.tvg.erp.repository.TranferDetailsApprovalsRepository;
 import com.tvg.erp.service.criteria.TranferDetailsApprovalsCriteria;
 import com.tvg.erp.service.dto.TranferDetailsApprovalsDTO;
@@ -1096,28 +1096,28 @@ class TranferDetailsApprovalsResourceIT {
 
     @Test
     @Transactional
-    void getAllTranferDetailsApprovalsByTransferDetailsIsEqualToSomething() throws Exception {
+    void getAllTranferDetailsApprovalsByTransferIsEqualToSomething() throws Exception {
         // Initialize the database
         tranferDetailsApprovalsRepository.saveAndFlush(tranferDetailsApprovals);
-        TransferDetails transferDetails;
-        if (TestUtil.findAll(em, TransferDetails.class).isEmpty()) {
-            transferDetails = TransferDetailsResourceIT.createEntity(em);
-            em.persist(transferDetails);
+        Transfer transfer;
+        if (TestUtil.findAll(em, Transfer.class).isEmpty()) {
+            transfer = TransferResourceIT.createEntity(em);
+            em.persist(transfer);
             em.flush();
         } else {
-            transferDetails = TestUtil.findAll(em, TransferDetails.class).get(0);
+            transfer = TestUtil.findAll(em, Transfer.class).get(0);
         }
-        em.persist(transferDetails);
+        em.persist(transfer);
         em.flush();
-        tranferDetailsApprovals.setTransferDetails(transferDetails);
+        tranferDetailsApprovals.setTransfer(transfer);
         tranferDetailsApprovalsRepository.saveAndFlush(tranferDetailsApprovals);
-        Long transferDetailsId = transferDetails.getId();
+        Long transferId = transfer.getId();
 
-        // Get all the tranferDetailsApprovalsList where transferDetails equals to transferDetailsId
-        defaultTranferDetailsApprovalsShouldBeFound("transferDetailsId.equals=" + transferDetailsId);
+        // Get all the tranferDetailsApprovalsList where transfer equals to transferId
+        defaultTranferDetailsApprovalsShouldBeFound("transferId.equals=" + transferId);
 
-        // Get all the tranferDetailsApprovalsList where transferDetails equals to (transferDetailsId + 1)
-        defaultTranferDetailsApprovalsShouldNotBeFound("transferDetailsId.equals=" + (transferDetailsId + 1));
+        // Get all the tranferDetailsApprovalsList where transfer equals to (transferId + 1)
+        defaultTranferDetailsApprovalsShouldNotBeFound("transferId.equals=" + (transferId + 1));
     }
 
     /**

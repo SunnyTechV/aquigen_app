@@ -145,26 +145,14 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" jhiTranslate="aquigenApp.tranferRecieved.transferDetails" for="field_transferDetails"
-            >Transfer Details</label
-          >
-          <select
-            class="form-control"
-            id="field_transferDetails"
-            data-cy="transferDetails"
-            name="transferDetails"
-            formControlName="transferDetails"
-          >
+          <label class="form-control-label" jhiTranslate="aquigenApp.tranferRecieved.transfer" for="field_transfer">Transfer</label>
+          <select class="form-control" id="field_transfer" data-cy="transfer" name="transfer" formControlName="transfer">
             <option [ngValue]="null"></option>
             <option
-              [ngValue]="
-                transferDetailsOption.id === editForm.get('transferDetails')!.value?.id
-                  ? editForm.get('transferDetails')!.value
-                  : transferDetailsOption
-              "
-              *ngFor="let transferDetailsOption of transferDetailsSharedCollection; trackBy: trackTransferDetailsById"
+              [ngValue]="transferOption.id === editForm.get('transfer')!.value?.id ? editForm.get('transfer')!.value : transferOption"
+              *ngFor="let transferOption of transfersSharedCollection; trackBy: trackTransferById"
             >
-              {{ transferDetailsOption.id }}
+              {{ transferOption.id }}
             </option>
           </select>
         </div>

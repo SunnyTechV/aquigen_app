@@ -29,7 +29,7 @@
       "lastModifiedBy": "Last Modified By",
       "isDeleted": "Is Deleted",
       "isActive": "Is Active",
-      "transferDetails": "Transfer Details"
+      "transfer": "Transfer"
     }
   }
 }

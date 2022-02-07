@@ -8,6 +8,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.tvg.erp.IntegrationTest;
 import com.tvg.erp.domain.RmInventory;
 import com.tvg.erp.domain.SecurityUser;
+import com.tvg.erp.domain.TranferDetailsApprovals;
+import com.tvg.erp.domain.TranferRecieved;
 import com.tvg.erp.domain.Transfer;
 import com.tvg.erp.domain.TransferDetails;
 import com.tvg.erp.domain.enumeration.Status;
@@ -973,6 +975,58 @@ class TransferResourceIT {
 
         // Get all the transferList where transferDetails equals to (transferDetailsId + 1)
         defaultTransferShouldNotBeFound("transferDetailsId.equals=" + (transferDetailsId + 1));
+    }
+
+    @Test
+    @Transactional
+    void getAllTransfersByTranferDetailsApprovalsIsEqualToSomething() throws Exception {
+        // Initialize the database
+        transferRepository.saveAndFlush(transfer);
+        TranferDetailsApprovals tranferDetailsApprovals;
+        if (TestUtil.findAll(em, TranferDetailsApprovals.class).isEmpty()) {
+            tranferDetailsApprovals = TranferDetailsApprovalsResourceIT.createEntity(em);
+            em.persist(tranferDetailsApprovals);
+            em.flush();
+        } else {
+            tranferDetailsApprovals = TestUtil.findAll(em, TranferDetailsApprovals.class).get(0);
+        }
+        em.persist(tranferDetailsApprovals);
+        em.flush();
+        transfer.addTranferDetailsApprovals(tranferDetailsApprovals);
+        transferRepository.saveAndFlush(transfer);
+        Long tranferDetailsApprovalsId = tranferDetailsApprovals.getId();
+
+        // Get all the transferList where tranferDetailsApprovals equals to tranferDetailsApprovalsId
+        defaultTransferShouldBeFound("tranferDetailsApprovalsId.equals=" + tranferDetailsApprovalsId);
+
+        // Get all the transferList where tranferDetailsApprovals equals to (tranferDetailsApprovalsId + 1)
+        defaultTransferShouldNotBeFound("tranferDetailsApprovalsId.equals=" + (tranferDetailsApprovalsId + 1));
+    }
+
+    @Test
+    @Transactional
+    void getAllTransfersByTranferRecievedIsEqualToSomething() throws Exception {
+        // Initialize the database
+        transferRepository.saveAndFlush(transfer);
+        TranferRecieved tranferRecieved;
+        if (TestUtil.findAll(em, TranferRecieved.class).isEmpty()) {
+            tranferRecieved = TranferRecievedResourceIT.createEntity(em);
+            em.persist(tranferRecieved);
+            em.flush();
+        } else {
+            tranferRecieved = TestUtil.findAll(em, TranferRecieved.class).get(0);
+        }
+        em.persist(tranferRecieved);
+        em.flush();
+        transfer.addTranferRecieved(tranferRecieved);
+        transferRepository.saveAndFlush(transfer);
+        Long tranferRecievedId = tranferRecieved.getId();
+
+        // Get all the transferList where tranferRecieved equals to tranferRecievedId
+        defaultTransferShouldBeFound("tranferRecievedId.equals=" + tranferRecievedId);
+
+        // Get all the transferList where tranferRecieved equals to (tranferRecievedId + 1)
+        defaultTransferShouldNotBeFound("tranferRecievedId.equals=" + (tranferRecievedId + 1));
     }
 
     @Test

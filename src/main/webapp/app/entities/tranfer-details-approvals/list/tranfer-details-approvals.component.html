@@ -66,8 +66,8 @@
           <th scope="col" jhiSortBy="isActive">
             <span jhiTranslate="aquigenApp.tranferDetailsApprovals.isActive">Is Active</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="transferDetails.id">
-            <span jhiTranslate="aquigenApp.tranferDetailsApprovals.transferDetails">Transfer Details</span> <fa-icon icon="sort"></fa-icon>
+          <th scope="col" jhiSortBy="transfer.id">
+            <span jhiTranslate="aquigenApp.tranferDetailsApprovals.transfer">Transfer</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col"></th>
         </tr>
@@ -89,10 +89,8 @@
           <td>{{ tranferDetailsApprovals.isDeleted }}</td>
           <td>{{ tranferDetailsApprovals.isActive }}</td>
           <td>
-            <div *ngIf="tranferDetailsApprovals.transferDetails">
-              <a [routerLink]="['/transfer-details', tranferDetailsApprovals.transferDetails?.id, 'view']">{{
-                tranferDetailsApprovals.transferDetails?.id
-              }}</a>
+            <div *ngIf="tranferDetailsApprovals.transfer">
+              <a [routerLink]="['/transfer', tranferDetailsApprovals.transfer?.id, 'view']">{{ tranferDetailsApprovals.transfer?.id }}</a>
             </div>
           </td>
           <td class="text-right">
