@@ -1,0 +1,60 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="consumptionDetails">
+      <h2 data-cy="consumptionDetailsDetailsHeading">
+        <span jhiTranslate="aquigenApp.consumptionDetails.detail.title">Consumption Details</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ consumptionDetails.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="aquigenApp.consumptionDetails.comsumptionDate">Comsumption Date</span></dt>
+        <dd>
+          <span>{{ consumptionDetails.comsumptionDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="aquigenApp.consumptionDetails.qtyConsumed">Qty Consumed</span></dt>
+        <dd>
+          <span>{{ consumptionDetails.qtyConsumed }}</span>
+        </dd>
+        <dt><span jhiTranslate="aquigenApp.consumptionDetails.freeField1">Free Field 1</span></dt>
+        <dd>
+          <span>{{ consumptionDetails.freeField1 }}</span>
+        </dd>
+        <dt><span jhiTranslate="aquigenApp.consumptionDetails.freeField2">Free Field 2</span></dt>
+        <dd>
+          <span>{{ consumptionDetails.freeField2 }}</span>
+        </dd>
+        <dt><span jhiTranslate="aquigenApp.consumptionDetails.lastModified">Last Modified</span></dt>
+        <dd>
+          <span>{{ consumptionDetails.lastModified | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="aquigenApp.consumptionDetails.lastModifiedBy">Last Modified By</span></dt>
+        <dd>
+          <span>{{ consumptionDetails.lastModifiedBy }}</span>
+        </dd>
+        <dt><span jhiTranslate="aquigenApp.consumptionDetails.rmInventory">Rm Inventory</span></dt>
+        <dd>
+          <div *ngIf="consumptionDetails.rmInventory">
+            <a [routerLink]="['/rm-inventory', consumptionDetails.rmInventory?.id, 'view']">{{ consumptionDetails.rmInventory?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/consumption-details', consumptionDetails.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

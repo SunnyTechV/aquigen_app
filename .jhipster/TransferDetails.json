@@ -1,0 +1,75 @@
+{
+  "applications": "*",
+  "changelogDate": "20220207054615",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "transfer_details",
+  "fields": [
+    {
+      "fieldName": "approvalDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "transferId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "qty",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "comment",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "freeField1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "freeField2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "lastModified",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "lastModifiedBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "isDeleted",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "isActive",
+      "fieldType": "Boolean"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "TransferDetails",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "tranferDetailsApprovals",
+      "otherEntityRelationshipName": "transferDetails",
+      "relationshipName": "tranferDetailsApprovals",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "tranferRecieved",
+      "otherEntityRelationshipName": "transferDetails",
+      "relationshipName": "tranferRecieved",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "transfer",
+      "otherEntityRelationshipName": "transferDetails",
+      "relationshipName": "transfer",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

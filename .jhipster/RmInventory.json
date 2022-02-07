@@ -1,0 +1,99 @@
+{
+  "applications": "*",
+  "changelogDate": "20220207054612",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "rm_inventory",
+  "fields": [
+    {
+      "fieldName": "inwardDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "inwardQty",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "outwardQty",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "outwardDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "totalQuanity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "pricePerUnit",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "lotNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "expiryDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "freeField1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "freeField2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "freeField3",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "freeField4",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "lastModified",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "lastModifiedBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "isDeleted",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "isActive",
+      "fieldType": "Boolean"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "RmInventory",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "transfer",
+      "otherEntityRelationshipName": "rmInventory",
+      "relationshipName": "transfer",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "purchaseOrder",
+      "otherEntityRelationshipName": "rmInventory",
+      "relationshipName": "purchaseOrder",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "consumptionDetails",
+      "otherEntityRelationshipName": "rmInventory",
+      "relationshipName": "consumptionDetails",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceClass"
+}

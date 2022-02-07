@@ -1,0 +1,166 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-transfer-heading" data-cy="TransferCreateUpdateHeading" jhiTranslate="aquigenApp.transfer.home.createOrEditLabel">
+        Create or edit a Transfer
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="aquigenApp.transfer.transferId" for="field_transferId">Transfer Id</label>
+          <input
+            type="number"
+            class="form-control"
+            name="transferId"
+            id="field_transferId"
+            data-cy="transferId"
+            formControlName="transferId"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="aquigenApp.transfer.tranferDate" for="field_tranferDate">Tranfer Date</label>
+          <div class="d-flex">
+            <input
+              id="field_tranferDate"
+              data-cy="tranferDate"
+              type="datetime-local"
+              class="form-control"
+              name="tranferDate"
+              formControlName="tranferDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="aquigenApp.transfer.comment" for="field_comment">Comment</label>
+          <input type="text" class="form-control" name="comment" id="field_comment" data-cy="comment" formControlName="comment" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="aquigenApp.transfer.isApproved" for="field_isApproved">Is Approved</label>
+          <input
+            type="checkbox"
+            class="form-check"
+            name="isApproved"
+            id="field_isApproved"
+            data-cy="isApproved"
+            formControlName="isApproved"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="aquigenApp.transfer.isRecieved" for="field_isRecieved">Is Recieved</label>
+          <input
+            type="checkbox"
+            class="form-check"
+            name="isRecieved"
+            id="field_isRecieved"
+            data-cy="isRecieved"
+            formControlName="isRecieved"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="aquigenApp.transfer.status" for="field_status">Status</label>
+          <select class="form-control" name="status" formControlName="status" id="field_status" data-cy="status">
+            <option [ngValue]="null">{{ 'aquigenApp.Status.null' | translate }}</option>
+            <option *ngFor="let status of statusValues" [value]="status">{{ 'aquigenApp.Status.' + status | translate }}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="aquigenApp.transfer.freeField1" for="field_freeField1">Free Field 1</label>
+          <input
+            type="text"
+            class="form-control"
+            name="freeField1"
+            id="field_freeField1"
+            data-cy="freeField1"
+            formControlName="freeField1"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="aquigenApp.transfer.freeField2" for="field_freeField2">Free Field 2</label>
+          <input
+            type="text"
+            class="form-control"
+            name="freeField2"
+            id="field_freeField2"
+            data-cy="freeField2"
+            formControlName="freeField2"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="aquigenApp.transfer.lastModified" for="field_lastModified">Last Modified</label>
+          <div class="d-flex">
+            <input
+              id="field_lastModified"
+              data-cy="lastModified"
+              type="datetime-local"
+              class="form-control"
+              name="lastModified"
+              formControlName="lastModified"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="aquigenApp.transfer.lastModifiedBy" for="field_lastModifiedBy"
+            >Last Modified By</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="lastModifiedBy"
+            id="field_lastModifiedBy"
+            data-cy="lastModifiedBy"
+            formControlName="lastModifiedBy"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="aquigenApp.transfer.rmInventory" for="field_rmInventory">Rm Inventory</label>
+          <select class="form-control" id="field_rmInventory" data-cy="rmInventory" name="rmInventory" formControlName="rmInventory">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                rmInventoryOption.id === editForm.get('rmInventory')!.value?.id ? editForm.get('rmInventory')!.value : rmInventoryOption
+              "
+              *ngFor="let rmInventoryOption of rmInventoriesSharedCollection; trackBy: trackRmInventoryById"
+            >
+              {{ rmInventoryOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

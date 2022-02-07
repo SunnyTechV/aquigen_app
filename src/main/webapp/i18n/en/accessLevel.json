@@ -1,0 +1,9 @@
+{
+  "aquigenApp": {
+    "AccessLevel": {
+      "null": "",
+      "ADMIN": "Admin",
+      "USER": "User"
+    }
+  }
+}

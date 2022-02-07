@@ -1,0 +1,135 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="rawMaterialMaster">
+      <h2 data-cy="rawMaterialMasterDetailsHeading">
+        <span jhiTranslate="aquigenApp.rawMaterialMaster.detail.title">Raw Material Master</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ rawMaterialMaster.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="aquigenApp.rawMaterialMaster.materialName">Material Name</span></dt>
+        <dd>
+          <span>{{ rawMaterialMaster.materialName }}</span>
+        </dd>
+        <dt><span jhiTranslate="aquigenApp.rawMaterialMaster.shortName">Short Name</span></dt>
+        <dd>
+          <span>{{ rawMaterialMaster.shortName }}</span>
+        </dd>
+        <dt><span jhiTranslate="aquigenApp.rawMaterialMaster.chemicalFormula">Chemical Formula</span></dt>
+        <dd>
+          <span>{{ rawMaterialMaster.chemicalFormula }}</span>
+        </dd>
+        <dt><span jhiTranslate="aquigenApp.rawMaterialMaster.hsnNo">Hsn No</span></dt>
+        <dd>
+          <span>{{ rawMaterialMaster.hsnNo }}</span>
+        </dd>
+        <dt><span jhiTranslate="aquigenApp.rawMaterialMaster.barCode">Bar Code</span></dt>
+        <dd>
+          <span>{{ rawMaterialMaster.barCode }}</span>
+        </dd>
+        <dt><span jhiTranslate="aquigenApp.rawMaterialMaster.qrCode">Qr Code</span></dt>
+        <dd>
+          <span>{{ rawMaterialMaster.qrCode }}</span>
+        </dd>
+        <dt><span jhiTranslate="aquigenApp.rawMaterialMaster.gstPercentage">Gst Percentage</span></dt>
+        <dd>
+          <span>{{ rawMaterialMaster.gstPercentage }}</span>
+        </dd>
+        <dt><span jhiTranslate="aquigenApp.rawMaterialMaster.materialImage">Material Image</span></dt>
+        <dd>
+          <span>{{ rawMaterialMaster.materialImage }}</span>
+        </dd>
+        <dt><span jhiTranslate="aquigenApp.rawMaterialMaster.alertUnits">Alert Units</span></dt>
+        <dd>
+          <span>{{ rawMaterialMaster.alertUnits }}</span>
+        </dd>
+        <dt><span jhiTranslate="aquigenApp.rawMaterialMaster.casNumber">Cas Number</span></dt>
+        <dd>
+          <span>{{ rawMaterialMaster.casNumber }}</span>
+        </dd>
+        <dt><span jhiTranslate="aquigenApp.rawMaterialMaster.catlogNumber">Catlog Number</span></dt>
+        <dd>
+          <span>{{ rawMaterialMaster.catlogNumber }}</span>
+        </dd>
+        <dt><span jhiTranslate="aquigenApp.rawMaterialMaster.description">Description</span></dt>
+        <dd>
+          <span>{{ rawMaterialMaster.description }}</span>
+        </dd>
+        <dt><span jhiTranslate="aquigenApp.rawMaterialMaster.lastModified">Last Modified</span></dt>
+        <dd>
+          <span>{{ rawMaterialMaster.lastModified | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="aquigenApp.rawMaterialMaster.lastModifiedBy">Last Modified By</span></dt>
+        <dd>
+          <span>{{ rawMaterialMaster.lastModifiedBy }}</span>
+        </dd>
+        <dt><span jhiTranslate="aquigenApp.rawMaterialMaster.freeField1">Free Field 1</span></dt>
+        <dd>
+          <span>{{ rawMaterialMaster.freeField1 }}</span>
+        </dd>
+        <dt><span jhiTranslate="aquigenApp.rawMaterialMaster.freeField2">Free Field 2</span></dt>
+        <dd>
+          <span>{{ rawMaterialMaster.freeField2 }}</span>
+        </dd>
+        <dt><span jhiTranslate="aquigenApp.rawMaterialMaster.freeField3">Free Field 3</span></dt>
+        <dd>
+          <span>{{ rawMaterialMaster.freeField3 }}</span>
+        </dd>
+        <dt><span jhiTranslate="aquigenApp.rawMaterialMaster.freeField4">Free Field 4</span></dt>
+        <dd>
+          <span>{{ rawMaterialMaster.freeField4 }}</span>
+        </dd>
+        <dt><span jhiTranslate="aquigenApp.rawMaterialMaster.isDeleted">Is Deleted</span></dt>
+        <dd>
+          <span>{{ rawMaterialMaster.isDeleted }}</span>
+        </dd>
+        <dt><span jhiTranslate="aquigenApp.rawMaterialMaster.isActive">Is Active</span></dt>
+        <dd>
+          <span>{{ rawMaterialMaster.isActive }}</span>
+        </dd>
+        <dt><span jhiTranslate="aquigenApp.rawMaterialMaster.rawMaterialOrder">Raw Material Order</span></dt>
+        <dd>
+          <span *ngFor="let rawMaterialOrder of rawMaterialMaster.rawMaterialOrders; let last = last">
+            <a [routerLink]="['/raw-material-order', rawMaterialOrder?.id, 'view']">{{ rawMaterialOrder.id }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+        <dt><span jhiTranslate="aquigenApp.rawMaterialMaster.categories">Categories</span></dt>
+        <dd>
+          <div *ngIf="rawMaterialMaster.categories">
+            <a [routerLink]="['/categories', rawMaterialMaster.categories?.id, 'view']">{{ rawMaterialMaster.categories?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="aquigenApp.rawMaterialMaster.unit">Unit</span></dt>
+        <dd>
+          <div *ngIf="rawMaterialMaster.unit">
+            <a [routerLink]="['/unit', rawMaterialMaster.unit?.id, 'view']">{{ rawMaterialMaster.unit?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="aquigenApp.rawMaterialMaster.securityUser">Security User</span></dt>
+        <dd>
+          <div *ngIf="rawMaterialMaster.securityUser">
+            <a [routerLink]="['/security-user', rawMaterialMaster.securityUser?.id, 'view']">{{ rawMaterialMaster.securityUser?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/raw-material-master', rawMaterialMaster.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>
