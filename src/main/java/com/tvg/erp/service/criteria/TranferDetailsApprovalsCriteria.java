@@ -29,8 +29,6 @@ public class TranferDetailsApprovalsCriteria implements Serializable, Criteria {
 
     private InstantFilter approvalDate;
 
-    private LongFilter transferId;
-
     private DoubleFilter qtyRequested;
 
     private DoubleFilter qtyApproved;
@@ -58,7 +56,6 @@ public class TranferDetailsApprovalsCriteria implements Serializable, Criteria {
     public TranferDetailsApprovalsCriteria(TranferDetailsApprovalsCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
         this.approvalDate = other.approvalDate == null ? null : other.approvalDate.copy();
-        this.transferId = other.transferId == null ? null : other.transferId.copy();
         this.qtyRequested = other.qtyRequested == null ? null : other.qtyRequested.copy();
         this.qtyApproved = other.qtyApproved == null ? null : other.qtyApproved.copy();
         this.comment = other.comment == null ? null : other.comment.copy();
@@ -105,21 +102,6 @@ public class TranferDetailsApprovalsCriteria implements Serializable, Criteria {
 
     public void setApprovalDate(InstantFilter approvalDate) {
         this.approvalDate = approvalDate;
-    }
-
-    public LongFilter getTransferId() {
-        return transferId;
-    }
-
-    public LongFilter transferId() {
-        if (transferId == null) {
-            transferId = new LongFilter();
-        }
-        return transferId;
-    }
-
-    public void setTransferId(LongFilter transferId) {
-        this.transferId = transferId;
     }
 
     public DoubleFilter getQtyRequested() {
@@ -292,7 +274,6 @@ public class TranferDetailsApprovalsCriteria implements Serializable, Criteria {
         return (
             Objects.equals(id, that.id) &&
             Objects.equals(approvalDate, that.approvalDate) &&
-            Objects.equals(transferId, that.transferId) &&
             Objects.equals(qtyRequested, that.qtyRequested) &&
             Objects.equals(qtyApproved, that.qtyApproved) &&
             Objects.equals(comment, that.comment) &&
@@ -312,7 +293,6 @@ public class TranferDetailsApprovalsCriteria implements Serializable, Criteria {
         return Objects.hash(
             id,
             approvalDate,
-            transferId,
             qtyRequested,
             qtyApproved,
             comment,
@@ -333,7 +313,6 @@ public class TranferDetailsApprovalsCriteria implements Serializable, Criteria {
         return "TranferDetailsApprovalsCriteria{" +
             (id != null ? "id=" + id + ", " : "") +
             (approvalDate != null ? "approvalDate=" + approvalDate + ", " : "") +
-            (transferId != null ? "transferId=" + transferId + ", " : "") +
             (qtyRequested != null ? "qtyRequested=" + qtyRequested + ", " : "") +
             (qtyApproved != null ? "qtyApproved=" + qtyApproved + ", " : "") +
             (comment != null ? "comment=" + comment + ", " : "") +

@@ -12,8 +12,6 @@ public class TransferDTO implements Serializable {
 
     private Long id;
 
-    private Long transferId;
-
     private Instant tranferDate;
 
     private String comment;
@@ -40,14 +38,6 @@ public class TransferDTO implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getTransferId() {
-        return transferId;
-    }
-
-    public void setTransferId(Long transferId) {
-        this.transferId = transferId;
     }
 
     public Instant getTranferDate() {
@@ -156,7 +146,6 @@ public class TransferDTO implements Serializable {
     public String toString() {
         return "TransferDTO{" +
             "id=" + getId() +
-            ", transferId=" + getTransferId() +
             ", tranferDate='" + getTranferDate() + "'" +
             ", comment='" + getComment() + "'" +
             ", isApproved='" + getIsApproved() + "'" +

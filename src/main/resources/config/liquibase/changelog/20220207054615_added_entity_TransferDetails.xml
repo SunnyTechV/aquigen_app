@@ -17,9 +17,6 @@
             <column name="approval_date" type="${datetimeType}">
                 <constraints nullable="true" />
             </column>
-            <column name="transfer_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
             <column name="qty" type="double">
                 <constraints nullable="true" />
             </column>
@@ -71,7 +68,6 @@
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
             <column name="approval_date" type="date"/>
-            <column name="transfer_id" type="numeric"/>
             <column name="qty" type="numeric"/>
             <column name="comment" type="string"/>
             <column name="free_field_1" type="string"/>

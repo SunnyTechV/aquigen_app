@@ -13,8 +13,6 @@ public class TranferDetailsApprovalsDTO implements Serializable {
 
     private Instant approvalDate;
 
-    private Long transferId;
-
     private Double qtyRequested;
 
     private Double qtyApproved;
@@ -49,14 +47,6 @@ public class TranferDetailsApprovalsDTO implements Serializable {
 
     public void setApprovalDate(Instant approvalDate) {
         this.approvalDate = approvalDate;
-    }
-
-    public Long getTransferId() {
-        return transferId;
-    }
-
-    public void setTransferId(Long transferId) {
-        this.transferId = transferId;
     }
 
     public Double getQtyRequested() {
@@ -166,7 +156,6 @@ public class TranferDetailsApprovalsDTO implements Serializable {
         return "TranferDetailsApprovalsDTO{" +
             "id=" + getId() +
             ", approvalDate='" + getApprovalDate() + "'" +
-            ", transferId=" + getTransferId() +
             ", qtyRequested=" + getQtyRequested() +
             ", qtyApproved=" + getQtyApproved() +
             ", comment='" + getComment() + "'" +

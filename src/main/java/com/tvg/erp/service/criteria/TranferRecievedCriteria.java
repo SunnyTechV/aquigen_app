@@ -29,8 +29,6 @@ public class TranferRecievedCriteria implements Serializable, Criteria {
 
     private InstantFilter transferDate;
 
-    private LongFilter transferId;
-
     private DoubleFilter qtyTransfered;
 
     private DoubleFilter qtyReceived;
@@ -58,7 +56,6 @@ public class TranferRecievedCriteria implements Serializable, Criteria {
     public TranferRecievedCriteria(TranferRecievedCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
         this.transferDate = other.transferDate == null ? null : other.transferDate.copy();
-        this.transferId = other.transferId == null ? null : other.transferId.copy();
         this.qtyTransfered = other.qtyTransfered == null ? null : other.qtyTransfered.copy();
         this.qtyReceived = other.qtyReceived == null ? null : other.qtyReceived.copy();
         this.comment = other.comment == null ? null : other.comment.copy();
@@ -105,21 +102,6 @@ public class TranferRecievedCriteria implements Serializable, Criteria {
 
     public void setTransferDate(InstantFilter transferDate) {
         this.transferDate = transferDate;
-    }
-
-    public LongFilter getTransferId() {
-        return transferId;
-    }
-
-    public LongFilter transferId() {
-        if (transferId == null) {
-            transferId = new LongFilter();
-        }
-        return transferId;
-    }
-
-    public void setTransferId(LongFilter transferId) {
-        this.transferId = transferId;
     }
 
     public DoubleFilter getQtyTransfered() {
@@ -292,7 +274,6 @@ public class TranferRecievedCriteria implements Serializable, Criteria {
         return (
             Objects.equals(id, that.id) &&
             Objects.equals(transferDate, that.transferDate) &&
-            Objects.equals(transferId, that.transferId) &&
             Objects.equals(qtyTransfered, that.qtyTransfered) &&
             Objects.equals(qtyReceived, that.qtyReceived) &&
             Objects.equals(comment, that.comment) &&
@@ -312,7 +293,6 @@ public class TranferRecievedCriteria implements Serializable, Criteria {
         return Objects.hash(
             id,
             transferDate,
-            transferId,
             qtyTransfered,
             qtyReceived,
             comment,
@@ -333,7 +313,6 @@ public class TranferRecievedCriteria implements Serializable, Criteria {
         return "TranferRecievedCriteria{" +
             (id != null ? "id=" + id + ", " : "") +
             (transferDate != null ? "transferDate=" + transferDate + ", " : "") +
-            (transferId != null ? "transferId=" + transferId + ", " : "") +
             (qtyTransfered != null ? "qtyTransfered=" + qtyTransfered + ", " : "") +
             (qtyReceived != null ? "qtyReceived=" + qtyReceived + ", " : "") +
             (comment != null ? "comment=" + comment + ", " : "") +

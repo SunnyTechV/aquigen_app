@@ -8,7 +8,6 @@ import { Status } from 'app/entities/enumerations/status.model';
 
 export interface ITransfer {
   id?: number;
-  transferId?: number | null;
   tranferDate?: dayjs.Dayjs | null;
   comment?: string | null;
   isApproved?: boolean | null;
@@ -28,7 +27,6 @@ export interface ITransfer {
 export class Transfer implements ITransfer {
   constructor(
     public id?: number,
-    public transferId?: number | null,
     public tranferDate?: dayjs.Dayjs | null,
     public comment?: string | null,
     public isApproved?: boolean | null,

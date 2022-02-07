@@ -26,7 +26,6 @@ describe('TransferDetails Service', () => {
     elemDefault = {
       id: 0,
       approvalDate: currentDate,
-      transferId: 0,
       qty: 0,
       comment: 'AAAAAAA',
       freeField1: 'AAAAAAA',
@@ -85,7 +84,6 @@ describe('TransferDetails Service', () => {
         {
           id: 1,
           approvalDate: currentDate.format(DATE_TIME_FORMAT),
-          transferId: 1,
           qty: 1,
           comment: 'BBBBBB',
           freeField1: 'BBBBBB',
@@ -116,9 +114,8 @@ describe('TransferDetails Service', () => {
     it('should partial update a TransferDetails', () => {
       const patchObject = Object.assign(
         {
-          qty: 1,
-          lastModified: currentDate.format(DATE_TIME_FORMAT),
-          isActive: true,
+          comment: 'BBBBBB',
+          lastModifiedBy: 'BBBBBB',
         },
         new TransferDetails()
       );
@@ -145,7 +142,6 @@ describe('TransferDetails Service', () => {
         {
           id: 1,
           approvalDate: currentDate.format(DATE_TIME_FORMAT),
-          transferId: 1,
           qty: 1,
           comment: 'BBBBBB',
           freeField1: 'BBBBBB',
@@ -211,7 +207,7 @@ describe('TransferDetails Service', () => {
       });
 
       it('should add only unique TransferDetails to an array', () => {
-        const transferDetailsArray: ITransferDetails[] = [{ id: 123 }, { id: 456 }, { id: 77142 }];
+        const transferDetailsArray: ITransferDetails[] = [{ id: 123 }, { id: 456 }, { id: 96262 }];
         const transferDetailsCollection: ITransferDetails[] = [{ id: 123 }];
         expectedResult = service.addTransferDetailsToCollectionIfMissing(transferDetailsCollection, ...transferDetailsArray);
         expect(expectedResult).toHaveLength(3);

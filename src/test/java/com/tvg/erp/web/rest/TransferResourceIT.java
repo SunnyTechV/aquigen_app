@@ -40,10 +40,6 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class TransferResourceIT {
 
-    private static final Long DEFAULT_TRANSFER_ID = 1L;
-    private static final Long UPDATED_TRANSFER_ID = 2L;
-    private static final Long SMALLER_TRANSFER_ID = 1L - 1L;
-
     private static final Instant DEFAULT_TRANFER_DATE = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_TRANFER_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
@@ -99,7 +95,6 @@ class TransferResourceIT {
      */
     public static Transfer createEntity(EntityManager em) {
         Transfer transfer = new Transfer()
-            .transferId(DEFAULT_TRANSFER_ID)
             .tranferDate(DEFAULT_TRANFER_DATE)
             .comment(DEFAULT_COMMENT)
             .isApproved(DEFAULT_IS_APPROVED)
@@ -120,7 +115,6 @@ class TransferResourceIT {
      */
     public static Transfer createUpdatedEntity(EntityManager em) {
         Transfer transfer = new Transfer()
-            .transferId(UPDATED_TRANSFER_ID)
             .tranferDate(UPDATED_TRANFER_DATE)
             .comment(UPDATED_COMMENT)
             .isApproved(UPDATED_IS_APPROVED)
@@ -152,7 +146,6 @@ class TransferResourceIT {
         List<Transfer> transferList = transferRepository.findAll();
         assertThat(transferList).hasSize(databaseSizeBeforeCreate + 1);
         Transfer testTransfer = transferList.get(transferList.size() - 1);
-        assertThat(testTransfer.getTransferId()).isEqualTo(DEFAULT_TRANSFER_ID);
         assertThat(testTransfer.getTranferDate()).isEqualTo(DEFAULT_TRANFER_DATE);
         assertThat(testTransfer.getComment()).isEqualTo(DEFAULT_COMMENT);
         assertThat(testTransfer.getIsApproved()).isEqualTo(DEFAULT_IS_APPROVED);
@@ -195,7 +188,6 @@ class TransferResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(transfer.getId().intValue())))
-            .andExpect(jsonPath("$.[*].transferId").value(hasItem(DEFAULT_TRANSFER_ID.intValue())))
             .andExpect(jsonPath("$.[*].tranferDate").value(hasItem(DEFAULT_TRANFER_DATE.toString())))
             .andExpect(jsonPath("$.[*].comment").value(hasItem(DEFAULT_COMMENT)))
             .andExpect(jsonPath("$.[*].isApproved").value(hasItem(DEFAULT_IS_APPROVED.booleanValue())))
@@ -219,7 +211,6 @@ class TransferResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(transfer.getId().intValue()))
-            .andExpect(jsonPath("$.transferId").value(DEFAULT_TRANSFER_ID.intValue()))
             .andExpect(jsonPath("$.tranferDate").value(DEFAULT_TRANFER_DATE.toString()))
             .andExpect(jsonPath("$.comment").value(DEFAULT_COMMENT))
             .andExpect(jsonPath("$.isApproved").value(DEFAULT_IS_APPROVED.booleanValue()))
@@ -247,110 +238,6 @@ class TransferResourceIT {
 
         defaultTransferShouldBeFound("id.lessThanOrEqual=" + id);
         defaultTransferShouldNotBeFound("id.lessThan=" + id);
-    }
-
-    @Test
-    @Transactional
-    void getAllTransfersByTransferIdIsEqualToSomething() throws Exception {
-        // Initialize the database
-        transferRepository.saveAndFlush(transfer);
-
-        // Get all the transferList where transferId equals to DEFAULT_TRANSFER_ID
-        defaultTransferShouldBeFound("transferId.equals=" + DEFAULT_TRANSFER_ID);
-
-        // Get all the transferList where transferId equals to UPDATED_TRANSFER_ID
-        defaultTransferShouldNotBeFound("transferId.equals=" + UPDATED_TRANSFER_ID);
-    }
-
-    @Test
-    @Transactional
-    void getAllTransfersByTransferIdIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        transferRepository.saveAndFlush(transfer);
-
-        // Get all the transferList where transferId not equals to DEFAULT_TRANSFER_ID
-        defaultTransferShouldNotBeFound("transferId.notEquals=" + DEFAULT_TRANSFER_ID);
-
-        // Get all the transferList where transferId not equals to UPDATED_TRANSFER_ID
-        defaultTransferShouldBeFound("transferId.notEquals=" + UPDATED_TRANSFER_ID);
-    }
-
-    @Test
-    @Transactional
-    void getAllTransfersByTransferIdIsInShouldWork() throws Exception {
-        // Initialize the database
-        transferRepository.saveAndFlush(transfer);
-
-        // Get all the transferList where transferId in DEFAULT_TRANSFER_ID or UPDATED_TRANSFER_ID
-        defaultTransferShouldBeFound("transferId.in=" + DEFAULT_TRANSFER_ID + "," + UPDATED_TRANSFER_ID);
-
-        // Get all the transferList where transferId equals to UPDATED_TRANSFER_ID
-        defaultTransferShouldNotBeFound("transferId.in=" + UPDATED_TRANSFER_ID);
-    }
-
-    @Test
-    @Transactional
-    void getAllTransfersByTransferIdIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        transferRepository.saveAndFlush(transfer);
-
-        // Get all the transferList where transferId is not null
-        defaultTransferShouldBeFound("transferId.specified=true");
-
-        // Get all the transferList where transferId is null
-        defaultTransferShouldNotBeFound("transferId.specified=false");
-    }
-
-    @Test
-    @Transactional
-    void getAllTransfersByTransferIdIsGreaterThanOrEqualToSomething() throws Exception {
-        // Initialize the database
-        transferRepository.saveAndFlush(transfer);
-
-        // Get all the transferList where transferId is greater than or equal to DEFAULT_TRANSFER_ID
-        defaultTransferShouldBeFound("transferId.greaterThanOrEqual=" + DEFAULT_TRANSFER_ID);
-
-        // Get all the transferList where transferId is greater than or equal to UPDATED_TRANSFER_ID
-        defaultTransferShouldNotBeFound("transferId.greaterThanOrEqual=" + UPDATED_TRANSFER_ID);
-    }
-
-    @Test
-    @Transactional
-    void getAllTransfersByTransferIdIsLessThanOrEqualToSomething() throws Exception {
-        // Initialize the database
-        transferRepository.saveAndFlush(transfer);
-
-        // Get all the transferList where transferId is less than or equal to DEFAULT_TRANSFER_ID
-        defaultTransferShouldBeFound("transferId.lessThanOrEqual=" + DEFAULT_TRANSFER_ID);
-
-        // Get all the transferList where transferId is less than or equal to SMALLER_TRANSFER_ID
-        defaultTransferShouldNotBeFound("transferId.lessThanOrEqual=" + SMALLER_TRANSFER_ID);
-    }
-
-    @Test
-    @Transactional
-    void getAllTransfersByTransferIdIsLessThanSomething() throws Exception {
-        // Initialize the database
-        transferRepository.saveAndFlush(transfer);
-
-        // Get all the transferList where transferId is less than DEFAULT_TRANSFER_ID
-        defaultTransferShouldNotBeFound("transferId.lessThan=" + DEFAULT_TRANSFER_ID);
-
-        // Get all the transferList where transferId is less than UPDATED_TRANSFER_ID
-        defaultTransferShouldBeFound("transferId.lessThan=" + UPDATED_TRANSFER_ID);
-    }
-
-    @Test
-    @Transactional
-    void getAllTransfersByTransferIdIsGreaterThanSomething() throws Exception {
-        // Initialize the database
-        transferRepository.saveAndFlush(transfer);
-
-        // Get all the transferList where transferId is greater than DEFAULT_TRANSFER_ID
-        defaultTransferShouldNotBeFound("transferId.greaterThan=" + DEFAULT_TRANSFER_ID);
-
-        // Get all the transferList where transferId is greater than SMALLER_TRANSFER_ID
-        defaultTransferShouldBeFound("transferId.greaterThan=" + SMALLER_TRANSFER_ID);
     }
 
     @Test
@@ -1064,7 +951,6 @@ class TransferResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(transfer.getId().intValue())))
-            .andExpect(jsonPath("$.[*].transferId").value(hasItem(DEFAULT_TRANSFER_ID.intValue())))
             .andExpect(jsonPath("$.[*].tranferDate").value(hasItem(DEFAULT_TRANFER_DATE.toString())))
             .andExpect(jsonPath("$.[*].comment").value(hasItem(DEFAULT_COMMENT)))
             .andExpect(jsonPath("$.[*].isApproved").value(hasItem(DEFAULT_IS_APPROVED.booleanValue())))
@@ -1122,7 +1008,6 @@ class TransferResourceIT {
         // Disconnect from session so that the updates on updatedTransfer are not directly saved in db
         em.detach(updatedTransfer);
         updatedTransfer
-            .transferId(UPDATED_TRANSFER_ID)
             .tranferDate(UPDATED_TRANFER_DATE)
             .comment(UPDATED_COMMENT)
             .isApproved(UPDATED_IS_APPROVED)
@@ -1146,7 +1031,6 @@ class TransferResourceIT {
         List<Transfer> transferList = transferRepository.findAll();
         assertThat(transferList).hasSize(databaseSizeBeforeUpdate);
         Transfer testTransfer = transferList.get(transferList.size() - 1);
-        assertThat(testTransfer.getTransferId()).isEqualTo(UPDATED_TRANSFER_ID);
         assertThat(testTransfer.getTranferDate()).isEqualTo(UPDATED_TRANFER_DATE);
         assertThat(testTransfer.getComment()).isEqualTo(UPDATED_COMMENT);
         assertThat(testTransfer.getIsApproved()).isEqualTo(UPDATED_IS_APPROVED);
@@ -1236,12 +1120,11 @@ class TransferResourceIT {
         partialUpdatedTransfer.setId(transfer.getId());
 
         partialUpdatedTransfer
-            .transferId(UPDATED_TRANSFER_ID)
-            .comment(UPDATED_COMMENT)
+            .tranferDate(UPDATED_TRANFER_DATE)
             .isApproved(UPDATED_IS_APPROVED)
-            .status(UPDATED_STATUS)
-            .freeField2(UPDATED_FREE_FIELD_2)
-            .lastModifiedBy(UPDATED_LAST_MODIFIED_BY);
+            .isRecieved(UPDATED_IS_RECIEVED)
+            .freeField1(UPDATED_FREE_FIELD_1)
+            .lastModified(UPDATED_LAST_MODIFIED);
 
         restTransferMockMvc
             .perform(
@@ -1255,16 +1138,15 @@ class TransferResourceIT {
         List<Transfer> transferList = transferRepository.findAll();
         assertThat(transferList).hasSize(databaseSizeBeforeUpdate);
         Transfer testTransfer = transferList.get(transferList.size() - 1);
-        assertThat(testTransfer.getTransferId()).isEqualTo(UPDATED_TRANSFER_ID);
-        assertThat(testTransfer.getTranferDate()).isEqualTo(DEFAULT_TRANFER_DATE);
-        assertThat(testTransfer.getComment()).isEqualTo(UPDATED_COMMENT);
+        assertThat(testTransfer.getTranferDate()).isEqualTo(UPDATED_TRANFER_DATE);
+        assertThat(testTransfer.getComment()).isEqualTo(DEFAULT_COMMENT);
         assertThat(testTransfer.getIsApproved()).isEqualTo(UPDATED_IS_APPROVED);
-        assertThat(testTransfer.getIsRecieved()).isEqualTo(DEFAULT_IS_RECIEVED);
-        assertThat(testTransfer.getStatus()).isEqualTo(UPDATED_STATUS);
-        assertThat(testTransfer.getFreeField1()).isEqualTo(DEFAULT_FREE_FIELD_1);
-        assertThat(testTransfer.getFreeField2()).isEqualTo(UPDATED_FREE_FIELD_2);
-        assertThat(testTransfer.getLastModified()).isEqualTo(DEFAULT_LAST_MODIFIED);
-        assertThat(testTransfer.getLastModifiedBy()).isEqualTo(UPDATED_LAST_MODIFIED_BY);
+        assertThat(testTransfer.getIsRecieved()).isEqualTo(UPDATED_IS_RECIEVED);
+        assertThat(testTransfer.getStatus()).isEqualTo(DEFAULT_STATUS);
+        assertThat(testTransfer.getFreeField1()).isEqualTo(UPDATED_FREE_FIELD_1);
+        assertThat(testTransfer.getFreeField2()).isEqualTo(DEFAULT_FREE_FIELD_2);
+        assertThat(testTransfer.getLastModified()).isEqualTo(UPDATED_LAST_MODIFIED);
+        assertThat(testTransfer.getLastModifiedBy()).isEqualTo(DEFAULT_LAST_MODIFIED_BY);
     }
 
     @Test
@@ -1280,7 +1162,6 @@ class TransferResourceIT {
         partialUpdatedTransfer.setId(transfer.getId());
 
         partialUpdatedTransfer
-            .transferId(UPDATED_TRANSFER_ID)
             .tranferDate(UPDATED_TRANFER_DATE)
             .comment(UPDATED_COMMENT)
             .isApproved(UPDATED_IS_APPROVED)
@@ -1303,7 +1184,6 @@ class TransferResourceIT {
         List<Transfer> transferList = transferRepository.findAll();
         assertThat(transferList).hasSize(databaseSizeBeforeUpdate);
         Transfer testTransfer = transferList.get(transferList.size() - 1);
-        assertThat(testTransfer.getTransferId()).isEqualTo(UPDATED_TRANSFER_ID);
         assertThat(testTransfer.getTranferDate()).isEqualTo(UPDATED_TRANFER_DATE);
         assertThat(testTransfer.getComment()).isEqualTo(UPDATED_COMMENT);
         assertThat(testTransfer.getIsApproved()).isEqualTo(UPDATED_IS_APPROVED);

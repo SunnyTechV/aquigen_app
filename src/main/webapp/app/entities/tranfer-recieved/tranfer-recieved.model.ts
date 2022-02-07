@@ -4,7 +4,6 @@ import { ITransfer } from 'app/entities/transfer/transfer.model';
 export interface ITranferRecieved {
   id?: number;
   transferDate?: dayjs.Dayjs | null;
-  transferId?: number | null;
   qtyTransfered?: number | null;
   qtyReceived?: number | null;
   comment?: string | null;
@@ -21,7 +20,6 @@ export class TranferRecieved implements ITranferRecieved {
   constructor(
     public id?: number,
     public transferDate?: dayjs.Dayjs | null,
-    public transferId?: number | null,
     public qtyTransfered?: number | null,
     public qtyReceived?: number | null,
     public comment?: string | null,

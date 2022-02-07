@@ -26,7 +26,6 @@ describe('TranferDetailsApprovals Service', () => {
     elemDefault = {
       id: 0,
       approvalDate: currentDate,
-      transferId: 0,
       qtyRequested: 0,
       qtyApproved: 0,
       comment: 'AAAAAAA',
@@ -86,7 +85,6 @@ describe('TranferDetailsApprovals Service', () => {
         {
           id: 1,
           approvalDate: currentDate.format(DATE_TIME_FORMAT),
-          transferId: 1,
           qtyRequested: 1,
           qtyApproved: 1,
           comment: 'BBBBBB',
@@ -119,11 +117,10 @@ describe('TranferDetailsApprovals Service', () => {
       const patchObject = Object.assign(
         {
           approvalDate: currentDate.format(DATE_TIME_FORMAT),
-          comment: 'BBBBBB',
           freeField1: 'BBBBBB',
           freeField2: 'BBBBBB',
           lastModified: currentDate.format(DATE_TIME_FORMAT),
-          isDeleted: true,
+          lastModifiedBy: 'BBBBBB',
           isActive: true,
         },
         new TranferDetailsApprovals()
@@ -151,7 +148,6 @@ describe('TranferDetailsApprovals Service', () => {
         {
           id: 1,
           approvalDate: currentDate.format(DATE_TIME_FORMAT),
-          transferId: 1,
           qtyRequested: 1,
           qtyApproved: 1,
           comment: 'BBBBBB',
@@ -224,7 +220,7 @@ describe('TranferDetailsApprovals Service', () => {
       });
 
       it('should add only unique TranferDetailsApprovals to an array', () => {
-        const tranferDetailsApprovalsArray: ITranferDetailsApprovals[] = [{ id: 123 }, { id: 456 }, { id: 8038 }];
+        const tranferDetailsApprovalsArray: ITranferDetailsApprovals[] = [{ id: 123 }, { id: 456 }, { id: 58350 }];
         const tranferDetailsApprovalsCollection: ITranferDetailsApprovals[] = [{ id: 123 }];
         expectedResult = service.addTranferDetailsApprovalsToCollectionIfMissing(
           tranferDetailsApprovalsCollection,

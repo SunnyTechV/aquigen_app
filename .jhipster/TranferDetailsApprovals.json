@@ -10,10 +10,6 @@
       "fieldType": "Instant"
     },
     {
-      "fieldName": "transferId",
-      "fieldType": "Long"
-    },
-    {
       "fieldName": "qtyRequested",
       "fieldType": "Double"
     },

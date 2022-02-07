@@ -29,8 +29,6 @@ public class TransferDetailsCriteria implements Serializable, Criteria {
 
     private InstantFilter approvalDate;
 
-    private LongFilter transferId;
-
     private DoubleFilter qty;
 
     private StringFilter comment;
@@ -56,7 +54,6 @@ public class TransferDetailsCriteria implements Serializable, Criteria {
     public TransferDetailsCriteria(TransferDetailsCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
         this.approvalDate = other.approvalDate == null ? null : other.approvalDate.copy();
-        this.transferId = other.transferId == null ? null : other.transferId.copy();
         this.qty = other.qty == null ? null : other.qty.copy();
         this.comment = other.comment == null ? null : other.comment.copy();
         this.freeField1 = other.freeField1 == null ? null : other.freeField1.copy();
@@ -102,21 +99,6 @@ public class TransferDetailsCriteria implements Serializable, Criteria {
 
     public void setApprovalDate(InstantFilter approvalDate) {
         this.approvalDate = approvalDate;
-    }
-
-    public LongFilter getTransferId() {
-        return transferId;
-    }
-
-    public LongFilter transferId() {
-        if (transferId == null) {
-            transferId = new LongFilter();
-        }
-        return transferId;
-    }
-
-    public void setTransferId(LongFilter transferId) {
-        this.transferId = transferId;
     }
 
     public DoubleFilter getQty() {
@@ -274,7 +256,6 @@ public class TransferDetailsCriteria implements Serializable, Criteria {
         return (
             Objects.equals(id, that.id) &&
             Objects.equals(approvalDate, that.approvalDate) &&
-            Objects.equals(transferId, that.transferId) &&
             Objects.equals(qty, that.qty) &&
             Objects.equals(comment, that.comment) &&
             Objects.equals(freeField1, that.freeField1) &&
@@ -293,7 +274,6 @@ public class TransferDetailsCriteria implements Serializable, Criteria {
         return Objects.hash(
             id,
             approvalDate,
-            transferId,
             qty,
             comment,
             freeField1,
@@ -313,7 +293,6 @@ public class TransferDetailsCriteria implements Serializable, Criteria {
         return "TransferDetailsCriteria{" +
             (id != null ? "id=" + id + ", " : "") +
             (approvalDate != null ? "approvalDate=" + approvalDate + ", " : "") +
-            (transferId != null ? "transferId=" + transferId + ", " : "") +
             (qty != null ? "qty=" + qty + ", " : "") +
             (comment != null ? "comment=" + comment + ", " : "") +
             (freeField1 != null ? "freeField1=" + freeField1 + ", " : "") +

@@ -25,9 +25,6 @@ public class Transfer implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "transfer_id")
-    private Long transferId;
-
     @Column(name = "tranfer_date")
     private Instant tranferDate;
 
@@ -108,19 +105,6 @@ public class Transfer implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getTransferId() {
-        return this.transferId;
-    }
-
-    public Transfer transferId(Long transferId) {
-        this.setTransferId(transferId);
-        return this;
-    }
-
-    public void setTransferId(Long transferId) {
-        this.transferId = transferId;
     }
 
     public Instant getTranferDate() {
@@ -401,7 +385,6 @@ public class Transfer implements Serializable {
     public String toString() {
         return "Transfer{" +
             "id=" + getId() +
-            ", transferId=" + getTransferId() +
             ", tranferDate='" + getTranferDate() + "'" +
             ", comment='" + getComment() + "'" +
             ", isApproved='" + getIsApproved() + "'" +

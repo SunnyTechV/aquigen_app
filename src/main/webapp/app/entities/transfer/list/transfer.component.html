@@ -33,9 +33,6 @@
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
           <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="transferId">
-            <span jhiTranslate="aquigenApp.transfer.transferId">Transfer Id</span> <fa-icon icon="sort"></fa-icon>
-          </th>
           <th scope="col" jhiSortBy="tranferDate">
             <span jhiTranslate="aquigenApp.transfer.tranferDate">Tranfer Date</span> <fa-icon icon="sort"></fa-icon>
           </th>
@@ -74,7 +71,6 @@
           <td>
             <a [routerLink]="['/transfer', transfer.id, 'view']">{{ transfer.id }}</a>
           </td>
-          <td>{{ transfer.transferId }}</td>
           <td>{{ transfer.tranferDate | formatMediumDatetime }}</td>
           <td>{{ transfer.comment }}</td>
           <td>{{ transfer.isApproved }}</td>

@@ -19,7 +19,6 @@
       },
       "id": "ID",
       "approvalDate": "Approval Date",
-      "transferId": "Transfer Id",
       "qty": "Qty",
       "comment": "Comment",
       "freeField1": "Free Field 1",

@@ -97,9 +97,6 @@ public class TranferDetailsApprovalsQueryService extends QueryService<TranferDet
                 specification =
                     specification.and(buildRangeSpecification(criteria.getApprovalDate(), TranferDetailsApprovals_.approvalDate));
             }
-            if (criteria.getTransferId() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getTransferId(), TranferDetailsApprovals_.transferId));
-            }
             if (criteria.getQtyRequested() != null) {
                 specification =
                     specification.and(buildRangeSpecification(criteria.getQtyRequested(), TranferDetailsApprovals_.qtyRequested));

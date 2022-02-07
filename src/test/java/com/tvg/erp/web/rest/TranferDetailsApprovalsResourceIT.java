@@ -38,10 +38,6 @@ class TranferDetailsApprovalsResourceIT {
     private static final Instant DEFAULT_APPROVAL_DATE = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_APPROVAL_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
-    private static final Long DEFAULT_TRANSFER_ID = 1L;
-    private static final Long UPDATED_TRANSFER_ID = 2L;
-    private static final Long SMALLER_TRANSFER_ID = 1L - 1L;
-
     private static final Double DEFAULT_QTY_REQUESTED = 1D;
     private static final Double UPDATED_QTY_REQUESTED = 2D;
     private static final Double SMALLER_QTY_REQUESTED = 1D - 1D;
@@ -100,7 +96,6 @@ class TranferDetailsApprovalsResourceIT {
     public static TranferDetailsApprovals createEntity(EntityManager em) {
         TranferDetailsApprovals tranferDetailsApprovals = new TranferDetailsApprovals()
             .approvalDate(DEFAULT_APPROVAL_DATE)
-            .transferId(DEFAULT_TRANSFER_ID)
             .qtyRequested(DEFAULT_QTY_REQUESTED)
             .qtyApproved(DEFAULT_QTY_APPROVED)
             .comment(DEFAULT_COMMENT)
@@ -122,7 +117,6 @@ class TranferDetailsApprovalsResourceIT {
     public static TranferDetailsApprovals createUpdatedEntity(EntityManager em) {
         TranferDetailsApprovals tranferDetailsApprovals = new TranferDetailsApprovals()
             .approvalDate(UPDATED_APPROVAL_DATE)
-            .transferId(UPDATED_TRANSFER_ID)
             .qtyRequested(UPDATED_QTY_REQUESTED)
             .qtyApproved(UPDATED_QTY_APPROVED)
             .comment(UPDATED_COMMENT)
@@ -159,7 +153,6 @@ class TranferDetailsApprovalsResourceIT {
         assertThat(tranferDetailsApprovalsList).hasSize(databaseSizeBeforeCreate + 1);
         TranferDetailsApprovals testTranferDetailsApprovals = tranferDetailsApprovalsList.get(tranferDetailsApprovalsList.size() - 1);
         assertThat(testTranferDetailsApprovals.getApprovalDate()).isEqualTo(DEFAULT_APPROVAL_DATE);
-        assertThat(testTranferDetailsApprovals.getTransferId()).isEqualTo(DEFAULT_TRANSFER_ID);
         assertThat(testTranferDetailsApprovals.getQtyRequested()).isEqualTo(DEFAULT_QTY_REQUESTED);
         assertThat(testTranferDetailsApprovals.getQtyApproved()).isEqualTo(DEFAULT_QTY_APPROVED);
         assertThat(testTranferDetailsApprovals.getComment()).isEqualTo(DEFAULT_COMMENT);
@@ -207,7 +200,6 @@ class TranferDetailsApprovalsResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(tranferDetailsApprovals.getId().intValue())))
             .andExpect(jsonPath("$.[*].approvalDate").value(hasItem(DEFAULT_APPROVAL_DATE.toString())))
-            .andExpect(jsonPath("$.[*].transferId").value(hasItem(DEFAULT_TRANSFER_ID.intValue())))
             .andExpect(jsonPath("$.[*].qtyRequested").value(hasItem(DEFAULT_QTY_REQUESTED.doubleValue())))
             .andExpect(jsonPath("$.[*].qtyApproved").value(hasItem(DEFAULT_QTY_APPROVED.doubleValue())))
             .andExpect(jsonPath("$.[*].comment").value(hasItem(DEFAULT_COMMENT)))
@@ -232,7 +224,6 @@ class TranferDetailsApprovalsResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(tranferDetailsApprovals.getId().intValue()))
             .andExpect(jsonPath("$.approvalDate").value(DEFAULT_APPROVAL_DATE.toString()))
-            .andExpect(jsonPath("$.transferId").value(DEFAULT_TRANSFER_ID.intValue()))
             .andExpect(jsonPath("$.qtyRequested").value(DEFAULT_QTY_REQUESTED.doubleValue()))
             .andExpect(jsonPath("$.qtyApproved").value(DEFAULT_QTY_APPROVED.doubleValue()))
             .andExpect(jsonPath("$.comment").value(DEFAULT_COMMENT))
@@ -312,110 +303,6 @@ class TranferDetailsApprovalsResourceIT {
 
         // Get all the tranferDetailsApprovalsList where approvalDate is null
         defaultTranferDetailsApprovalsShouldNotBeFound("approvalDate.specified=false");
-    }
-
-    @Test
-    @Transactional
-    void getAllTranferDetailsApprovalsByTransferIdIsEqualToSomething() throws Exception {
-        // Initialize the database
-        tranferDetailsApprovalsRepository.saveAndFlush(tranferDetailsApprovals);
-
-        // Get all the tranferDetailsApprovalsList where transferId equals to DEFAULT_TRANSFER_ID
-        defaultTranferDetailsApprovalsShouldBeFound("transferId.equals=" + DEFAULT_TRANSFER_ID);
-
-        // Get all the tranferDetailsApprovalsList where transferId equals to UPDATED_TRANSFER_ID
-        defaultTranferDetailsApprovalsShouldNotBeFound("transferId.equals=" + UPDATED_TRANSFER_ID);
-    }
-
-    @Test
-    @Transactional
-    void getAllTranferDetailsApprovalsByTransferIdIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        tranferDetailsApprovalsRepository.saveAndFlush(tranferDetailsApprovals);
-
-        // Get all the tranferDetailsApprovalsList where transferId not equals to DEFAULT_TRANSFER_ID
-        defaultTranferDetailsApprovalsShouldNotBeFound("transferId.notEquals=" + DEFAULT_TRANSFER_ID);
-
-        // Get all the tranferDetailsApprovalsList where transferId not equals to UPDATED_TRANSFER_ID
-        defaultTranferDetailsApprovalsShouldBeFound("transferId.notEquals=" + UPDATED_TRANSFER_ID);
-    }
-
-    @Test
-    @Transactional
-    void getAllTranferDetailsApprovalsByTransferIdIsInShouldWork() throws Exception {
-        // Initialize the database
-        tranferDetailsApprovalsRepository.saveAndFlush(tranferDetailsApprovals);
-
-        // Get all the tranferDetailsApprovalsList where transferId in DEFAULT_TRANSFER_ID or UPDATED_TRANSFER_ID
-        defaultTranferDetailsApprovalsShouldBeFound("transferId.in=" + DEFAULT_TRANSFER_ID + "," + UPDATED_TRANSFER_ID);
-
-        // Get all the tranferDetailsApprovalsList where transferId equals to UPDATED_TRANSFER_ID
-        defaultTranferDetailsApprovalsShouldNotBeFound("transferId.in=" + UPDATED_TRANSFER_ID);
-    }
-
-    @Test
-    @Transactional
-    void getAllTranferDetailsApprovalsByTransferIdIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        tranferDetailsApprovalsRepository.saveAndFlush(tranferDetailsApprovals);
-
-        // Get all the tranferDetailsApprovalsList where transferId is not null
-        defaultTranferDetailsApprovalsShouldBeFound("transferId.specified=true");
-
-        // Get all the tranferDetailsApprovalsList where transferId is null
-        defaultTranferDetailsApprovalsShouldNotBeFound("transferId.specified=false");
-    }
-
-    @Test
-    @Transactional
-    void getAllTranferDetailsApprovalsByTransferIdIsGreaterThanOrEqualToSomething() throws Exception {
-        // Initialize the database
-        tranferDetailsApprovalsRepository.saveAndFlush(tranferDetailsApprovals);
-
-        // Get all the tranferDetailsApprovalsList where transferId is greater than or equal to DEFAULT_TRANSFER_ID
-        defaultTranferDetailsApprovalsShouldBeFound("transferId.greaterThanOrEqual=" + DEFAULT_TRANSFER_ID);
-
-        // Get all the tranferDetailsApprovalsList where transferId is greater than or equal to UPDATED_TRANSFER_ID
-        defaultTranferDetailsApprovalsShouldNotBeFound("transferId.greaterThanOrEqual=" + UPDATED_TRANSFER_ID);
-    }
-
-    @Test
-    @Transactional
-    void getAllTranferDetailsApprovalsByTransferIdIsLessThanOrEqualToSomething() throws Exception {
-        // Initialize the database
-        tranferDetailsApprovalsRepository.saveAndFlush(tranferDetailsApprovals);
-
-        // Get all the tranferDetailsApprovalsList where transferId is less than or equal to DEFAULT_TRANSFER_ID
-        defaultTranferDetailsApprovalsShouldBeFound("transferId.lessThanOrEqual=" + DEFAULT_TRANSFER_ID);
-
-        // Get all the tranferDetailsApprovalsList where transferId is less than or equal to SMALLER_TRANSFER_ID
-        defaultTranferDetailsApprovalsShouldNotBeFound("transferId.lessThanOrEqual=" + SMALLER_TRANSFER_ID);
-    }
-
-    @Test
-    @Transactional
-    void getAllTranferDetailsApprovalsByTransferIdIsLessThanSomething() throws Exception {
-        // Initialize the database
-        tranferDetailsApprovalsRepository.saveAndFlush(tranferDetailsApprovals);
-
-        // Get all the tranferDetailsApprovalsList where transferId is less than DEFAULT_TRANSFER_ID
-        defaultTranferDetailsApprovalsShouldNotBeFound("transferId.lessThan=" + DEFAULT_TRANSFER_ID);
-
-        // Get all the tranferDetailsApprovalsList where transferId is less than UPDATED_TRANSFER_ID
-        defaultTranferDetailsApprovalsShouldBeFound("transferId.lessThan=" + UPDATED_TRANSFER_ID);
-    }
-
-    @Test
-    @Transactional
-    void getAllTranferDetailsApprovalsByTransferIdIsGreaterThanSomething() throws Exception {
-        // Initialize the database
-        tranferDetailsApprovalsRepository.saveAndFlush(tranferDetailsApprovals);
-
-        // Get all the tranferDetailsApprovalsList where transferId is greater than DEFAULT_TRANSFER_ID
-        defaultTranferDetailsApprovalsShouldNotBeFound("transferId.greaterThan=" + DEFAULT_TRANSFER_ID);
-
-        // Get all the tranferDetailsApprovalsList where transferId is greater than SMALLER_TRANSFER_ID
-        defaultTranferDetailsApprovalsShouldBeFound("transferId.greaterThan=" + SMALLER_TRANSFER_ID);
     }
 
     @Test
@@ -1130,7 +1017,6 @@ class TranferDetailsApprovalsResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(tranferDetailsApprovals.getId().intValue())))
             .andExpect(jsonPath("$.[*].approvalDate").value(hasItem(DEFAULT_APPROVAL_DATE.toString())))
-            .andExpect(jsonPath("$.[*].transferId").value(hasItem(DEFAULT_TRANSFER_ID.intValue())))
             .andExpect(jsonPath("$.[*].qtyRequested").value(hasItem(DEFAULT_QTY_REQUESTED.doubleValue())))
             .andExpect(jsonPath("$.[*].qtyApproved").value(hasItem(DEFAULT_QTY_APPROVED.doubleValue())))
             .andExpect(jsonPath("$.[*].comment").value(hasItem(DEFAULT_COMMENT)))
@@ -1191,7 +1077,6 @@ class TranferDetailsApprovalsResourceIT {
         em.detach(updatedTranferDetailsApprovals);
         updatedTranferDetailsApprovals
             .approvalDate(UPDATED_APPROVAL_DATE)
-            .transferId(UPDATED_TRANSFER_ID)
             .qtyRequested(UPDATED_QTY_REQUESTED)
             .qtyApproved(UPDATED_QTY_APPROVED)
             .comment(UPDATED_COMMENT)
@@ -1216,7 +1101,6 @@ class TranferDetailsApprovalsResourceIT {
         assertThat(tranferDetailsApprovalsList).hasSize(databaseSizeBeforeUpdate);
         TranferDetailsApprovals testTranferDetailsApprovals = tranferDetailsApprovalsList.get(tranferDetailsApprovalsList.size() - 1);
         assertThat(testTranferDetailsApprovals.getApprovalDate()).isEqualTo(UPDATED_APPROVAL_DATE);
-        assertThat(testTranferDetailsApprovals.getTransferId()).isEqualTo(UPDATED_TRANSFER_ID);
         assertThat(testTranferDetailsApprovals.getQtyRequested()).isEqualTo(UPDATED_QTY_REQUESTED);
         assertThat(testTranferDetailsApprovals.getQtyApproved()).isEqualTo(UPDATED_QTY_APPROVED);
         assertThat(testTranferDetailsApprovals.getComment()).isEqualTo(UPDATED_COMMENT);
@@ -1310,10 +1194,10 @@ class TranferDetailsApprovalsResourceIT {
         partialUpdatedTranferDetailsApprovals.setId(tranferDetailsApprovals.getId());
 
         partialUpdatedTranferDetailsApprovals
-            .freeField1(UPDATED_FREE_FIELD_1)
             .freeField2(UPDATED_FREE_FIELD_2)
             .lastModified(UPDATED_LAST_MODIFIED)
-            .lastModifiedBy(UPDATED_LAST_MODIFIED_BY);
+            .lastModifiedBy(UPDATED_LAST_MODIFIED_BY)
+            .isDeleted(UPDATED_IS_DELETED);
 
         restTranferDetailsApprovalsMockMvc
             .perform(
@@ -1328,15 +1212,14 @@ class TranferDetailsApprovalsResourceIT {
         assertThat(tranferDetailsApprovalsList).hasSize(databaseSizeBeforeUpdate);
         TranferDetailsApprovals testTranferDetailsApprovals = tranferDetailsApprovalsList.get(tranferDetailsApprovalsList.size() - 1);
         assertThat(testTranferDetailsApprovals.getApprovalDate()).isEqualTo(DEFAULT_APPROVAL_DATE);
-        assertThat(testTranferDetailsApprovals.getTransferId()).isEqualTo(DEFAULT_TRANSFER_ID);
         assertThat(testTranferDetailsApprovals.getQtyRequested()).isEqualTo(DEFAULT_QTY_REQUESTED);
         assertThat(testTranferDetailsApprovals.getQtyApproved()).isEqualTo(DEFAULT_QTY_APPROVED);
         assertThat(testTranferDetailsApprovals.getComment()).isEqualTo(DEFAULT_COMMENT);
-        assertThat(testTranferDetailsApprovals.getFreeField1()).isEqualTo(UPDATED_FREE_FIELD_1);
+        assertThat(testTranferDetailsApprovals.getFreeField1()).isEqualTo(DEFAULT_FREE_FIELD_1);
         assertThat(testTranferDetailsApprovals.getFreeField2()).isEqualTo(UPDATED_FREE_FIELD_2);
         assertThat(testTranferDetailsApprovals.getLastModified()).isEqualTo(UPDATED_LAST_MODIFIED);
         assertThat(testTranferDetailsApprovals.getLastModifiedBy()).isEqualTo(UPDATED_LAST_MODIFIED_BY);
-        assertThat(testTranferDetailsApprovals.getIsDeleted()).isEqualTo(DEFAULT_IS_DELETED);
+        assertThat(testTranferDetailsApprovals.getIsDeleted()).isEqualTo(UPDATED_IS_DELETED);
         assertThat(testTranferDetailsApprovals.getIsActive()).isEqualTo(DEFAULT_IS_ACTIVE);
     }
 
@@ -1354,7 +1237,6 @@ class TranferDetailsApprovalsResourceIT {
 
         partialUpdatedTranferDetailsApprovals
             .approvalDate(UPDATED_APPROVAL_DATE)
-            .transferId(UPDATED_TRANSFER_ID)
             .qtyRequested(UPDATED_QTY_REQUESTED)
             .qtyApproved(UPDATED_QTY_APPROVED)
             .comment(UPDATED_COMMENT)
@@ -1378,7 +1260,6 @@ class TranferDetailsApprovalsResourceIT {
         assertThat(tranferDetailsApprovalsList).hasSize(databaseSizeBeforeUpdate);
         TranferDetailsApprovals testTranferDetailsApprovals = tranferDetailsApprovalsList.get(tranferDetailsApprovalsList.size() - 1);
         assertThat(testTranferDetailsApprovals.getApprovalDate()).isEqualTo(UPDATED_APPROVAL_DATE);
-        assertThat(testTranferDetailsApprovals.getTransferId()).isEqualTo(UPDATED_TRANSFER_ID);
         assertThat(testTranferDetailsApprovals.getQtyRequested()).isEqualTo(UPDATED_QTY_REQUESTED);
         assertThat(testTranferDetailsApprovals.getQtyApproved()).isEqualTo(UPDATED_QTY_APPROVED);
         assertThat(testTranferDetailsApprovals.getComment()).isEqualTo(UPDATED_COMMENT);
