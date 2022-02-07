@@ -1,0 +1,198 @@
+<div>
+  <h2 id="page-heading" data-cy="RawMaterialMasterHeading">
+    <span jhiTranslate="aquigenApp.rawMaterialMaster.home.title">Raw Material Masters</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="aquigenApp.rawMaterialMaster.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-raw-material-master"
+        [routerLink]="['/raw-material-master/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="aquigenApp.rawMaterialMaster.home.createLabel"> Create a new Raw Material Master </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="rawMaterialMasters?.length === 0">
+    <span jhiTranslate="aquigenApp.rawMaterialMaster.home.notFound">No rawMaterialMasters found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="rawMaterialMasters && rawMaterialMasters.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="materialName">
+            <span jhiTranslate="aquigenApp.rawMaterialMaster.materialName">Material Name</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="shortName">
+            <span jhiTranslate="aquigenApp.rawMaterialMaster.shortName">Short Name</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="chemicalFormula">
+            <span jhiTranslate="aquigenApp.rawMaterialMaster.chemicalFormula">Chemical Formula</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="hsnNo">
+            <span jhiTranslate="aquigenApp.rawMaterialMaster.hsnNo">Hsn No</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="barCode">
+            <span jhiTranslate="aquigenApp.rawMaterialMaster.barCode">Bar Code</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="qrCode">
+            <span jhiTranslate="aquigenApp.rawMaterialMaster.qrCode">Qr Code</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="gstPercentage">
+            <span jhiTranslate="aquigenApp.rawMaterialMaster.gstPercentage">Gst Percentage</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="materialImage">
+            <span jhiTranslate="aquigenApp.rawMaterialMaster.materialImage">Material Image</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="alertUnits">
+            <span jhiTranslate="aquigenApp.rawMaterialMaster.alertUnits">Alert Units</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="casNumber">
+            <span jhiTranslate="aquigenApp.rawMaterialMaster.casNumber">Cas Number</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="catlogNumber">
+            <span jhiTranslate="aquigenApp.rawMaterialMaster.catlogNumber">Catlog Number</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="description">
+            <span jhiTranslate="aquigenApp.rawMaterialMaster.description">Description</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="lastModified">
+            <span jhiTranslate="aquigenApp.rawMaterialMaster.lastModified">Last Modified</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="lastModifiedBy">
+            <span jhiTranslate="aquigenApp.rawMaterialMaster.lastModifiedBy">Last Modified By</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="freeField1">
+            <span jhiTranslate="aquigenApp.rawMaterialMaster.freeField1">Free Field 1</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="freeField2">
+            <span jhiTranslate="aquigenApp.rawMaterialMaster.freeField2">Free Field 2</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="freeField3">
+            <span jhiTranslate="aquigenApp.rawMaterialMaster.freeField3">Free Field 3</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="freeField4">
+            <span jhiTranslate="aquigenApp.rawMaterialMaster.freeField4">Free Field 4</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="isDeleted">
+            <span jhiTranslate="aquigenApp.rawMaterialMaster.isDeleted">Is Deleted</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="isActive">
+            <span jhiTranslate="aquigenApp.rawMaterialMaster.isActive">Is Active</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="categories.id">
+            <span jhiTranslate="aquigenApp.rawMaterialMaster.categories">Categories</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="unit.id">
+            <span jhiTranslate="aquigenApp.rawMaterialMaster.unit">Unit</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="securityUser.id">
+            <span jhiTranslate="aquigenApp.rawMaterialMaster.securityUser">Security User</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let rawMaterialMaster of rawMaterialMasters; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/raw-material-master', rawMaterialMaster.id, 'view']">{{ rawMaterialMaster.id }}</a>
+          </td>
+          <td>{{ rawMaterialMaster.materialName }}</td>
+          <td>{{ rawMaterialMaster.shortName }}</td>
+          <td>{{ rawMaterialMaster.chemicalFormula }}</td>
+          <td>{{ rawMaterialMaster.hsnNo }}</td>
+          <td>{{ rawMaterialMaster.barCode }}</td>
+          <td>{{ rawMaterialMaster.qrCode }}</td>
+          <td>{{ rawMaterialMaster.gstPercentage }}</td>
+          <td>{{ rawMaterialMaster.materialImage }}</td>
+          <td>{{ rawMaterialMaster.alertUnits }}</td>
+          <td>{{ rawMaterialMaster.casNumber }}</td>
+          <td>{{ rawMaterialMaster.catlogNumber }}</td>
+          <td>{{ rawMaterialMaster.description }}</td>
+          <td>{{ rawMaterialMaster.lastModified | formatMediumDatetime }}</td>
+          <td>{{ rawMaterialMaster.lastModifiedBy }}</td>
+          <td>{{ rawMaterialMaster.freeField1 }}</td>
+          <td>{{ rawMaterialMaster.freeField2 }}</td>
+          <td>{{ rawMaterialMaster.freeField3 }}</td>
+          <td>{{ rawMaterialMaster.freeField4 }}</td>
+          <td>{{ rawMaterialMaster.isDeleted }}</td>
+          <td>{{ rawMaterialMaster.isActive }}</td>
+          <td>
+            <div *ngIf="rawMaterialMaster.categories">
+              <a [routerLink]="['/categories', rawMaterialMaster.categories?.id, 'view']">{{ rawMaterialMaster.categories?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="rawMaterialMaster.unit">
+              <a [routerLink]="['/unit', rawMaterialMaster.unit?.id, 'view']">{{ rawMaterialMaster.unit?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="rawMaterialMaster.securityUser">
+              <a [routerLink]="['/security-user', rawMaterialMaster.securityUser?.id, 'view']">{{ rawMaterialMaster.securityUser?.id }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/raw-material-master', rawMaterialMaster.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/raw-material-master', rawMaterialMaster.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(rawMaterialMaster)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="rawMaterialMasters && rawMaterialMasters.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

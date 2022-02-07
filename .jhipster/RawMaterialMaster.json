@@ -1,0 +1,128 @@
+{
+  "applications": "*",
+  "changelogDate": "20220207054609",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "raw_material_master",
+  "fields": [
+    {
+      "fieldName": "materialName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "shortName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "chemicalFormula",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "hsnNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "barCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "qrCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "gstPercentage",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "materialImage",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "alertUnits",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "casNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "catlogNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "lastModified",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "lastModifiedBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "freeField1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "freeField2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "freeField3",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "freeField4",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "isDeleted",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "isActive",
+      "fieldType": "Boolean"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "RawMaterialMaster",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "purchaseOrderDetails",
+      "otherEntityRelationshipName": "rawMaterialMaster",
+      "relationshipName": "purchaseOrderDetails",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "rawMaterialOrder",
+      "otherEntityRelationshipName": "rawMaterialMaster",
+      "ownerSide": true,
+      "relationshipName": "rawMaterialOrder",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityName": "categories",
+      "otherEntityRelationshipName": "rawMaterialMaster",
+      "relationshipName": "categories",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "unit",
+      "otherEntityRelationshipName": "rawMaterialMaster",
+      "relationshipName": "unit",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "securityUser",
+      "otherEntityRelationshipName": "rawMaterialMaster",
+      "relationshipName": "securityUser",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

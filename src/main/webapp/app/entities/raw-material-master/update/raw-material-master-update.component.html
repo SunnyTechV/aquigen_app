@@ -1,0 +1,322 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-raw-material-master-heading"
+        data-cy="RawMaterialMasterCreateUpdateHeading"
+        jhiTranslate="aquigenApp.rawMaterialMaster.home.createOrEditLabel"
+      >
+        Create or edit a Raw Material Master
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="aquigenApp.rawMaterialMaster.materialName" for="field_materialName"
+            >Material Name</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="materialName"
+            id="field_materialName"
+            data-cy="materialName"
+            formControlName="materialName"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="aquigenApp.rawMaterialMaster.shortName" for="field_shortName">Short Name</label>
+          <input type="text" class="form-control" name="shortName" id="field_shortName" data-cy="shortName" formControlName="shortName" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="aquigenApp.rawMaterialMaster.chemicalFormula" for="field_chemicalFormula"
+            >Chemical Formula</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="chemicalFormula"
+            id="field_chemicalFormula"
+            data-cy="chemicalFormula"
+            formControlName="chemicalFormula"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="aquigenApp.rawMaterialMaster.hsnNo" for="field_hsnNo">Hsn No</label>
+          <input type="text" class="form-control" name="hsnNo" id="field_hsnNo" data-cy="hsnNo" formControlName="hsnNo" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="aquigenApp.rawMaterialMaster.barCode" for="field_barCode">Bar Code</label>
+          <input type="text" class="form-control" name="barCode" id="field_barCode" data-cy="barCode" formControlName="barCode" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="aquigenApp.rawMaterialMaster.qrCode" for="field_qrCode">Qr Code</label>
+          <input type="text" class="form-control" name="qrCode" id="field_qrCode" data-cy="qrCode" formControlName="qrCode" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="aquigenApp.rawMaterialMaster.gstPercentage" for="field_gstPercentage"
+            >Gst Percentage</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="gstPercentage"
+            id="field_gstPercentage"
+            data-cy="gstPercentage"
+            formControlName="gstPercentage"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="aquigenApp.rawMaterialMaster.materialImage" for="field_materialImage"
+            >Material Image</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="materialImage"
+            id="field_materialImage"
+            data-cy="materialImage"
+            formControlName="materialImage"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="aquigenApp.rawMaterialMaster.alertUnits" for="field_alertUnits"
+            >Alert Units</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="alertUnits"
+            id="field_alertUnits"
+            data-cy="alertUnits"
+            formControlName="alertUnits"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="aquigenApp.rawMaterialMaster.casNumber" for="field_casNumber">Cas Number</label>
+          <input type="text" class="form-control" name="casNumber" id="field_casNumber" data-cy="casNumber" formControlName="casNumber" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="aquigenApp.rawMaterialMaster.catlogNumber" for="field_catlogNumber"
+            >Catlog Number</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="catlogNumber"
+            id="field_catlogNumber"
+            data-cy="catlogNumber"
+            formControlName="catlogNumber"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="aquigenApp.rawMaterialMaster.description" for="field_description"
+            >Description</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="description"
+            id="field_description"
+            data-cy="description"
+            formControlName="description"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="aquigenApp.rawMaterialMaster.lastModified" for="field_lastModified"
+            >Last Modified</label
+          >
+          <div class="d-flex">
+            <input
+              id="field_lastModified"
+              data-cy="lastModified"
+              type="datetime-local"
+              class="form-control"
+              name="lastModified"
+              formControlName="lastModified"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="aquigenApp.rawMaterialMaster.lastModifiedBy" for="field_lastModifiedBy"
+            >Last Modified By</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="lastModifiedBy"
+            id="field_lastModifiedBy"
+            data-cy="lastModifiedBy"
+            formControlName="lastModifiedBy"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="aquigenApp.rawMaterialMaster.freeField1" for="field_freeField1"
+            >Free Field 1</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="freeField1"
+            id="field_freeField1"
+            data-cy="freeField1"
+            formControlName="freeField1"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="aquigenApp.rawMaterialMaster.freeField2" for="field_freeField2"
+            >Free Field 2</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="freeField2"
+            id="field_freeField2"
+            data-cy="freeField2"
+            formControlName="freeField2"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="aquigenApp.rawMaterialMaster.freeField3" for="field_freeField3"
+            >Free Field 3</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="freeField3"
+            id="field_freeField3"
+            data-cy="freeField3"
+            formControlName="freeField3"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="aquigenApp.rawMaterialMaster.freeField4" for="field_freeField4"
+            >Free Field 4</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="freeField4"
+            id="field_freeField4"
+            data-cy="freeField4"
+            formControlName="freeField4"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="aquigenApp.rawMaterialMaster.isDeleted" for="field_isDeleted">Is Deleted</label>
+          <input type="checkbox" class="form-check" name="isDeleted" id="field_isDeleted" data-cy="isDeleted" formControlName="isDeleted" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="aquigenApp.rawMaterialMaster.isActive" for="field_isActive">Is Active</label>
+          <input type="checkbox" class="form-check" name="isActive" id="field_isActive" data-cy="isActive" formControlName="isActive" />
+        </div>
+
+        <div class="form-group">
+          <label jhiTranslate="aquigenApp.rawMaterialMaster.rawMaterialOrder" for="field_rawMaterialOrders">Raw Material Order</label>
+          <select
+            class="form-control"
+            id="field_rawMaterialOrders"
+            data-cy="rawMaterialOrder"
+            multiple
+            name="rawMaterialOrders"
+            formControlName="rawMaterialOrders"
+          >
+            <option
+              [ngValue]="getSelectedRawMaterialOrder(rawMaterialOrderOption, editForm.get('rawMaterialOrders')!.value)"
+              *ngFor="let rawMaterialOrderOption of rawMaterialOrdersSharedCollection; trackBy: trackRawMaterialOrderById"
+            >
+              {{ rawMaterialOrderOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="aquigenApp.rawMaterialMaster.categories" for="field_categories">Categories</label>
+          <select class="form-control" id="field_categories" data-cy="categories" name="categories" formControlName="categories">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                categoriesOption.id === editForm.get('categories')!.value?.id ? editForm.get('categories')!.value : categoriesOption
+              "
+              *ngFor="let categoriesOption of categoriesSharedCollection; trackBy: trackCategoriesById"
+            >
+              {{ categoriesOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="aquigenApp.rawMaterialMaster.unit" for="field_unit">Unit</label>
+          <select class="form-control" id="field_unit" data-cy="unit" name="unit" formControlName="unit">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="unitOption.id === editForm.get('unit')!.value?.id ? editForm.get('unit')!.value : unitOption"
+              *ngFor="let unitOption of unitsSharedCollection; trackBy: trackUnitById"
+            >
+              {{ unitOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="aquigenApp.rawMaterialMaster.securityUser" for="field_securityUser"
+            >Security User</label
+          >
+          <select class="form-control" id="field_securityUser" data-cy="securityUser" name="securityUser" formControlName="securityUser">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                securityUserOption.id === editForm.get('securityUser')!.value?.id ? editForm.get('securityUser')!.value : securityUserOption
+              "
+              *ngFor="let securityUserOption of securityUsersSharedCollection; trackBy: trackSecurityUserById"
+            >
+              {{ securityUserOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

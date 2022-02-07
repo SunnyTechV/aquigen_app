@@ -1,0 +1,148 @@
+<div>
+  <h2 id="page-heading" data-cy="TranferRecievedHeading">
+    <span jhiTranslate="aquigenApp.tranferRecieved.home.title">Tranfer Recieveds</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="aquigenApp.tranferRecieved.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-tranfer-recieved"
+        [routerLink]="['/tranfer-recieved/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="aquigenApp.tranferRecieved.home.createLabel"> Create a new Tranfer Recieved </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="tranferRecieveds?.length === 0">
+    <span jhiTranslate="aquigenApp.tranferRecieved.home.notFound">No tranferRecieveds found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="tranferRecieveds && tranferRecieveds.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="transferDate">
+            <span jhiTranslate="aquigenApp.tranferRecieved.transferDate">Transfer Date</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="transferId">
+            <span jhiTranslate="aquigenApp.tranferRecieved.transferId">Transfer Id</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="qtyTransfered">
+            <span jhiTranslate="aquigenApp.tranferRecieved.qtyTransfered">Qty Transfered</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="qtyReceived">
+            <span jhiTranslate="aquigenApp.tranferRecieved.qtyReceived">Qty Received</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="comment">
+            <span jhiTranslate="aquigenApp.tranferRecieved.comment">Comment</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="freeField1">
+            <span jhiTranslate="aquigenApp.tranferRecieved.freeField1">Free Field 1</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="freeField2">
+            <span jhiTranslate="aquigenApp.tranferRecieved.freeField2">Free Field 2</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="lastModified">
+            <span jhiTranslate="aquigenApp.tranferRecieved.lastModified">Last Modified</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="lastModifiedBy">
+            <span jhiTranslate="aquigenApp.tranferRecieved.lastModifiedBy">Last Modified By</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="isDeleted">
+            <span jhiTranslate="aquigenApp.tranferRecieved.isDeleted">Is Deleted</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="isActive">
+            <span jhiTranslate="aquigenApp.tranferRecieved.isActive">Is Active</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="transferDetails.id">
+            <span jhiTranslate="aquigenApp.tranferRecieved.transferDetails">Transfer Details</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tranferRecieved of tranferRecieveds; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/tranfer-recieved', tranferRecieved.id, 'view']">{{ tranferRecieved.id }}</a>
+          </td>
+          <td>{{ tranferRecieved.transferDate | formatMediumDatetime }}</td>
+          <td>{{ tranferRecieved.transferId }}</td>
+          <td>{{ tranferRecieved.qtyTransfered }}</td>
+          <td>{{ tranferRecieved.qtyReceived }}</td>
+          <td>{{ tranferRecieved.comment }}</td>
+          <td>{{ tranferRecieved.freeField1 }}</td>
+          <td>{{ tranferRecieved.freeField2 }}</td>
+          <td>{{ tranferRecieved.lastModified | formatMediumDatetime }}</td>
+          <td>{{ tranferRecieved.lastModifiedBy }}</td>
+          <td>{{ tranferRecieved.isDeleted }}</td>
+          <td>{{ tranferRecieved.isActive }}</td>
+          <td>
+            <div *ngIf="tranferRecieved.transferDetails">
+              <a [routerLink]="['/transfer-details', tranferRecieved.transferDetails?.id, 'view']">{{
+                tranferRecieved.transferDetails?.id
+              }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/tranfer-recieved', tranferRecieved.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/tranfer-recieved', tranferRecieved.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(tranferRecieved)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="tranferRecieveds && tranferRecieveds.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

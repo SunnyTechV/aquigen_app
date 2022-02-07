@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <!--
+        Added the constraints for entity RawMaterialMaster.
+    -->
+    <changeSet id="20220207054609-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="raw_material_master_id"
+                                 baseTableName="rel_raw_material_master__raw_material_order"
+                                 constraintName="fk_rel_raw_material_master__raw__raw_material_master_49_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="raw_material_master"/>
+
+        <addForeignKeyConstraint baseColumnNames="raw_material_order_id"
+                                 baseTableName="rel_raw_material_master__raw_material_order"
+                                 constraintName="fk_rel_raw_material_master__raw__raw_material_order_28_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="raw_material_order"/>
+
+        <addForeignKeyConstraint baseColumnNames="categories_id"
+                                 baseTableName="raw_material_master"
+                                 constraintName="fk_raw_material_master__categories_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="categories"/>
+
+        <addForeignKeyConstraint baseColumnNames="unit_id"
+                                 baseTableName="raw_material_master"
+                                 constraintName="fk_raw_material_master__unit_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="unit"/>
+
+        <addForeignKeyConstraint baseColumnNames="security_user_id"
+                                 baseTableName="raw_material_master"
+                                 constraintName="fk_raw_material_master__security_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="security_user"/>
+    </changeSet>
+</databaseChangeLog>

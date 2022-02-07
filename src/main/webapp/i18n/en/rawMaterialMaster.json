@@ -1,0 +1,48 @@
+{
+  "aquigenApp": {
+    "rawMaterialMaster": {
+      "home": {
+        "title": "Raw Material Masters",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Raw Material Master",
+        "createOrEditLabel": "Create or edit a Raw Material Master",
+        "notFound": "No Raw Material Masters found"
+      },
+      "created": "A new Raw Material Master is created with identifier {{ param }}",
+      "updated": "A Raw Material Master is updated with identifier {{ param }}",
+      "deleted": "A Raw Material Master is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Raw Material Master {{ id }}?"
+      },
+      "detail": {
+        "title": "Raw Material Master"
+      },
+      "id": "ID",
+      "materialName": "Material Name",
+      "shortName": "Short Name",
+      "chemicalFormula": "Chemical Formula",
+      "hsnNo": "Hsn No",
+      "barCode": "Bar Code",
+      "qrCode": "Qr Code",
+      "gstPercentage": "Gst Percentage",
+      "materialImage": "Material Image",
+      "alertUnits": "Alert Units",
+      "casNumber": "Cas Number",
+      "catlogNumber": "Catlog Number",
+      "description": "Description",
+      "lastModified": "Last Modified",
+      "lastModifiedBy": "Last Modified By",
+      "freeField1": "Free Field 1",
+      "freeField2": "Free Field 2",
+      "freeField3": "Free Field 3",
+      "freeField4": "Free Field 4",
+      "isDeleted": "Is Deleted",
+      "isActive": "Is Active",
+      "purchaseOrderDetails": "Purchase Order Details",
+      "rawMaterialOrder": "Raw Material Order",
+      "categories": "Categories",
+      "unit": "Unit",
+      "securityUser": "Security User"
+    }
+  }
+}

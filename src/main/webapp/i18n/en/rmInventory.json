@@ -1,0 +1,42 @@
+{
+  "aquigenApp": {
+    "rmInventory": {
+      "home": {
+        "title": "Rm Inventories",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Rm Inventory",
+        "createOrEditLabel": "Create or edit a Rm Inventory",
+        "notFound": "No Rm Inventories found"
+      },
+      "created": "A new Rm Inventory is created with identifier {{ param }}",
+      "updated": "A Rm Inventory is updated with identifier {{ param }}",
+      "deleted": "A Rm Inventory is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Rm Inventory {{ id }}?"
+      },
+      "detail": {
+        "title": "Rm Inventory"
+      },
+      "id": "ID",
+      "inwardDate": "Inward Date",
+      "inwardQty": "Inward Qty",
+      "outwardQty": "Outward Qty",
+      "outwardDate": "Outward Date",
+      "totalQuanity": "Total Quanity",
+      "pricePerUnit": "Price Per Unit",
+      "lotNo": "Lot No",
+      "expiryDate": "Expiry Date",
+      "freeField1": "Free Field 1",
+      "freeField2": "Free Field 2",
+      "freeField3": "Free Field 3",
+      "freeField4": "Free Field 4",
+      "lastModified": "Last Modified",
+      "lastModifiedBy": "Last Modified By",
+      "isDeleted": "Is Deleted",
+      "isActive": "Is Active",
+      "transfer": "Transfer",
+      "purchaseOrder": "Purchase Order",
+      "consumptionDetails": "Consumption Details"
+    }
+  }
+}
