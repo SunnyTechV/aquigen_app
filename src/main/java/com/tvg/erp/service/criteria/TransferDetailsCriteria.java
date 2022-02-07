@@ -47,10 +47,6 @@ public class TransferDetailsCriteria implements Serializable, Criteria {
 
     private BooleanFilter isActive;
 
-    private LongFilter tranferDetailsApprovalsId;
-
-    private LongFilter tranferRecievedId;
-
     private LongFilter transferId;
 
     private Boolean distinct;
@@ -69,8 +65,6 @@ public class TransferDetailsCriteria implements Serializable, Criteria {
         this.lastModifiedBy = other.lastModifiedBy == null ? null : other.lastModifiedBy.copy();
         this.isDeleted = other.isDeleted == null ? null : other.isDeleted.copy();
         this.isActive = other.isActive == null ? null : other.isActive.copy();
-        this.tranferDetailsApprovalsId = other.tranferDetailsApprovalsId == null ? null : other.tranferDetailsApprovalsId.copy();
-        this.tranferRecievedId = other.tranferRecievedId == null ? null : other.tranferRecievedId.copy();
         this.transferId = other.transferId == null ? null : other.transferId.copy();
         this.distinct = other.distinct;
     }
@@ -245,36 +239,6 @@ public class TransferDetailsCriteria implements Serializable, Criteria {
         this.isActive = isActive;
     }
 
-    public LongFilter getTranferDetailsApprovalsId() {
-        return tranferDetailsApprovalsId;
-    }
-
-    public LongFilter tranferDetailsApprovalsId() {
-        if (tranferDetailsApprovalsId == null) {
-            tranferDetailsApprovalsId = new LongFilter();
-        }
-        return tranferDetailsApprovalsId;
-    }
-
-    public void setTranferDetailsApprovalsId(LongFilter tranferDetailsApprovalsId) {
-        this.tranferDetailsApprovalsId = tranferDetailsApprovalsId;
-    }
-
-    public LongFilter getTranferRecievedId() {
-        return tranferRecievedId;
-    }
-
-    public LongFilter tranferRecievedId() {
-        if (tranferRecievedId == null) {
-            tranferRecievedId = new LongFilter();
-        }
-        return tranferRecievedId;
-    }
-
-    public void setTranferRecievedId(LongFilter tranferRecievedId) {
-        this.tranferRecievedId = tranferRecievedId;
-    }
-
     public LongFilter getTransferId() {
         return transferId;
     }
@@ -319,8 +283,6 @@ public class TransferDetailsCriteria implements Serializable, Criteria {
             Objects.equals(lastModifiedBy, that.lastModifiedBy) &&
             Objects.equals(isDeleted, that.isDeleted) &&
             Objects.equals(isActive, that.isActive) &&
-            Objects.equals(tranferDetailsApprovalsId, that.tranferDetailsApprovalsId) &&
-            Objects.equals(tranferRecievedId, that.tranferRecievedId) &&
             Objects.equals(transferId, that.transferId) &&
             Objects.equals(distinct, that.distinct)
         );
@@ -340,8 +302,6 @@ public class TransferDetailsCriteria implements Serializable, Criteria {
             lastModifiedBy,
             isDeleted,
             isActive,
-            tranferDetailsApprovalsId,
-            tranferRecievedId,
             transferId,
             distinct
         );
@@ -362,8 +322,6 @@ public class TransferDetailsCriteria implements Serializable, Criteria {
             (lastModifiedBy != null ? "lastModifiedBy=" + lastModifiedBy + ", " : "") +
             (isDeleted != null ? "isDeleted=" + isDeleted + ", " : "") +
             (isActive != null ? "isActive=" + isActive + ", " : "") +
-            (tranferDetailsApprovalsId != null ? "tranferDetailsApprovalsId=" + tranferDetailsApprovalsId + ", " : "") +
-            (tranferRecievedId != null ? "tranferRecievedId=" + tranferRecievedId + ", " : "") +
             (transferId != null ? "transferId=" + transferId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";

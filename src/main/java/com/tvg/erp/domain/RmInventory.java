@@ -74,7 +74,10 @@ public class RmInventory implements Serializable {
 
     @OneToMany(mappedBy = "rmInventory")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "securityUsers", "transferDetails", "rmInventory" }, allowSetters = true)
+    @JsonIgnoreProperties(
+        value = { "securityUsers", "transferDetails", "tranferDetailsApprovals", "tranferRecieveds", "rmInventory" },
+        allowSetters = true
+    )
     private Set<Transfer> transfers = new HashSet<>();
 
     @OneToMany(mappedBy = "rmInventory")

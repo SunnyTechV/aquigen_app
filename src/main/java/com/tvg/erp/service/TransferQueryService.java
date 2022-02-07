@@ -138,6 +138,24 @@ public class TransferQueryService extends QueryService<Transfer> {
                         )
                     );
             }
+            if (criteria.getTranferDetailsApprovalsId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getTranferDetailsApprovalsId(),
+                            root -> root.join(Transfer_.tranferDetailsApprovals, JoinType.LEFT).get(TranferDetailsApprovals_.id)
+                        )
+                    );
+            }
+            if (criteria.getTranferRecievedId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getTranferRecievedId(),
+                            root -> root.join(Transfer_.tranferRecieveds, JoinType.LEFT).get(TranferRecieved_.id)
+                        )
+                    );
+            }
             if (criteria.getRmInventoryId() != null) {
                 specification =
                     specification.and(

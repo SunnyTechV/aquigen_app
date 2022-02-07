@@ -58,12 +58,10 @@
         <dd>
           <span>{{ tranferRecieved.isActive }}</span>
         </dd>
-        <dt><span jhiTranslate="aquigenApp.tranferRecieved.transferDetails">Transfer Details</span></dt>
+        <dt><span jhiTranslate="aquigenApp.tranferRecieved.transfer">Transfer</span></dt>
         <dd>
-          <div *ngIf="tranferRecieved.transferDetails">
-            <a [routerLink]="['/transfer-details', tranferRecieved.transferDetails?.id, 'view']">{{
-              tranferRecieved.transferDetails?.id
-            }}</a>
+          <div *ngIf="tranferRecieved.transfer">
+            <a [routerLink]="['/transfer', tranferRecieved.transfer?.id, 'view']">{{ tranferRecieved.transfer?.id }}</a>
           </div>
         </dd>
       </dl>

@@ -47,7 +47,7 @@
             <column name="is_active" type="boolean">
                 <constraints nullable="true" />
             </column>
-            <column name="transfer_details_id" type="bigint">
+            <column name="transfer_id" type="bigint">
                 <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->

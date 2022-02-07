@@ -139,7 +139,10 @@ public class SecurityUser implements Serializable {
     private ProductQuatation productQuatation;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "securityUsers", "transferDetails", "rmInventory" }, allowSetters = true)
+    @JsonIgnoreProperties(
+        value = { "securityUsers", "transferDetails", "tranferDetailsApprovals", "tranferRecieveds", "rmInventory" },
+        allowSetters = true
+    )
     private Transfer transfer;
 
     @ManyToOne

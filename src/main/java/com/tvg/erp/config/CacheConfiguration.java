@@ -109,6 +109,8 @@ public class CacheConfiguration {
             createCache(cm, com.tvg.erp.domain.SecurityPermission.class.getName());
             createCache(cm, com.tvg.erp.domain.SecurityPermission.class.getName() + ".securityRoles");
             createCache(cm, com.tvg.erp.domain.SecurityPermission.class.getName() + ".securityUsers");
+            createCache(cm, com.tvg.erp.domain.Transfer.class.getName() + ".tranferDetailsApprovals");
+            createCache(cm, com.tvg.erp.domain.Transfer.class.getName() + ".tranferRecieveds");
             // jhipster-needle-ehcache-add-entry
         };
     }

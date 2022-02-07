@@ -56,8 +56,11 @@ public class TranferDetailsApprovals implements Serializable {
     private Boolean isActive;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "tranferDetailsApprovals", "tranferRecieveds", "transfer" }, allowSetters = true)
-    private TransferDetails transferDetails;
+    @JsonIgnoreProperties(
+        value = { "securityUsers", "transferDetails", "tranferDetailsApprovals", "tranferRecieveds", "rmInventory" },
+        allowSetters = true
+    )
+    private Transfer transfer;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -217,16 +220,16 @@ public class TranferDetailsApprovals implements Serializable {
         this.isActive = isActive;
     }
 
-    public TransferDetails getTransferDetails() {
-        return this.transferDetails;
+    public Transfer getTransfer() {
+        return this.transfer;
     }
 
-    public void setTransferDetails(TransferDetails transferDetails) {
-        this.transferDetails = transferDetails;
+    public void setTransfer(Transfer transfer) {
+        this.transfer = transfer;
     }
 
-    public TranferDetailsApprovals transferDetails(TransferDetails transferDetails) {
-        this.setTransferDetails(transferDetails);
+    public TranferDetailsApprovals transfer(Transfer transfer) {
+        this.setTransfer(transfer);
         return this;
     }
 

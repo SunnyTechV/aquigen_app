@@ -53,18 +53,6 @@
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityName": "tranferDetailsApprovals",
-      "otherEntityRelationshipName": "transferDetails",
-      "relationshipName": "tranferDetailsApprovals",
-      "relationshipType": "one-to-many"
-    },
-    {
-      "otherEntityName": "tranferRecieved",
-      "otherEntityRelationshipName": "transferDetails",
-      "relationshipName": "tranferRecieved",
-      "relationshipType": "one-to-many"
-    },
-    {
       "otherEntityName": "transfer",
       "otherEntityRelationshipName": "transferDetails",
       "relationshipName": "transfer",

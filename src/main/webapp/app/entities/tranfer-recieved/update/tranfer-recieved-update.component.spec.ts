@@ -8,8 +8,8 @@ import { of, Subject, from } from 'rxjs';
 
 import { TranferRecievedService } from '../service/tranfer-recieved.service';
 import { ITranferRecieved, TranferRecieved } from '../tranfer-recieved.model';
-import { ITransferDetails } from 'app/entities/transfer-details/transfer-details.model';
-import { TransferDetailsService } from 'app/entities/transfer-details/service/transfer-details.service';
+import { ITransfer } from 'app/entities/transfer/transfer.model';
+import { TransferService } from 'app/entities/transfer/service/transfer.service';
 
 import { TranferRecievedUpdateComponent } from './tranfer-recieved-update.component';
 
@@ -18,7 +18,7 @@ describe('TranferRecieved Management Update Component', () => {
   let fixture: ComponentFixture<TranferRecievedUpdateComponent>;
   let activatedRoute: ActivatedRoute;
   let tranferRecievedService: TranferRecievedService;
-  let transferDetailsService: TransferDetailsService;
+  let transferService: TransferService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -40,44 +40,41 @@ describe('TranferRecieved Management Update Component', () => {
     fixture = TestBed.createComponent(TranferRecievedUpdateComponent);
     activatedRoute = TestBed.inject(ActivatedRoute);
     tranferRecievedService = TestBed.inject(TranferRecievedService);
-    transferDetailsService = TestBed.inject(TransferDetailsService);
+    transferService = TestBed.inject(TransferService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should call TransferDetails query and add missing value', () => {
+    it('Should call Transfer query and add missing value', () => {
       const tranferRecieved: ITranferRecieved = { id: 456 };
-      const transferDetails: ITransferDetails = { id: 84694 };
-      tranferRecieved.transferDetails = transferDetails;
+      const transfer: ITransfer = { id: 73554 };
+      tranferRecieved.transfer = transfer;
 
-      const transferDetailsCollection: ITransferDetails[] = [{ id: 68516 }];
-      jest.spyOn(transferDetailsService, 'query').mockReturnValue(of(new HttpResponse({ body: transferDetailsCollection })));
-      const additionalTransferDetails = [transferDetails];
-      const expectedCollection: ITransferDetails[] = [...additionalTransferDetails, ...transferDetailsCollection];
-      jest.spyOn(transferDetailsService, 'addTransferDetailsToCollectionIfMissing').mockReturnValue(expectedCollection);
+      const transferCollection: ITransfer[] = [{ id: 44733 }];
+      jest.spyOn(transferService, 'query').mockReturnValue(of(new HttpResponse({ body: transferCollection })));
+      const additionalTransfers = [transfer];
+      const expectedCollection: ITransfer[] = [...additionalTransfers, ...transferCollection];
+      jest.spyOn(transferService, 'addTransferToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ tranferRecieved });
       comp.ngOnInit();
 
-      expect(transferDetailsService.query).toHaveBeenCalled();
-      expect(transferDetailsService.addTransferDetailsToCollectionIfMissing).toHaveBeenCalledWith(
-        transferDetailsCollection,
-        ...additionalTransferDetails
-      );
-      expect(comp.transferDetailsSharedCollection).toEqual(expectedCollection);
+      expect(transferService.query).toHaveBeenCalled();
+      expect(transferService.addTransferToCollectionIfMissing).toHaveBeenCalledWith(transferCollection, ...additionalTransfers);
+      expect(comp.transfersSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should update editForm', () => {
       const tranferRecieved: ITranferRecieved = { id: 456 };
-      const transferDetails: ITransferDetails = { id: 35956 };
-      tranferRecieved.transferDetails = transferDetails;
+      const transfer: ITransfer = { id: 5932 };
+      tranferRecieved.transfer = transfer;
 
       activatedRoute.data = of({ tranferRecieved });
       comp.ngOnInit();
 
       expect(comp.editForm.value).toEqual(expect.objectContaining(tranferRecieved));
-      expect(comp.transferDetailsSharedCollection).toContain(transferDetails);
+      expect(comp.transfersSharedCollection).toContain(transfer);
     });
   });
 
@@ -146,10 +143,10 @@ describe('TranferRecieved Management Update Component', () => {
   });
 
   describe('Tracking relationships identifiers', () => {
-    describe('trackTransferDetailsById', () => {
-      it('Should return tracked TransferDetails primary key', () => {
+    describe('trackTransferById', () => {
+      it('Should return tracked Transfer primary key', () => {
         const entity = { id: 123 };
-        const trackResult = comp.trackTransferDetailsById(0, entity);
+        const trackResult = comp.trackTransferById(0, entity);
         expect(trackResult).toEqual(entity.id);
       });
     });

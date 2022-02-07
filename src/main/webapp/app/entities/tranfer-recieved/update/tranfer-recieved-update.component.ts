@@ -10,8 +10,8 @@ import { DATE_TIME_FORMAT } from 'app/config/input.constants';
 
 import { ITranferRecieved, TranferRecieved } from '../tranfer-recieved.model';
 import { TranferRecievedService } from '../service/tranfer-recieved.service';
-import { ITransferDetails } from 'app/entities/transfer-details/transfer-details.model';
-import { TransferDetailsService } from 'app/entities/transfer-details/service/transfer-details.service';
+import { ITransfer } from 'app/entities/transfer/transfer.model';
+import { TransferService } from 'app/entities/transfer/service/transfer.service';
 
 @Component({
   selector: 'jhi-tranfer-recieved-update',
@@ -20,7 +20,7 @@ import { TransferDetailsService } from 'app/entities/transfer-details/service/tr
 export class TranferRecievedUpdateComponent implements OnInit {
   isSaving = false;
 
-  transferDetailsSharedCollection: ITransferDetails[] = [];
+  transfersSharedCollection: ITransfer[] = [];
 
   editForm = this.fb.group({
     id: [],
@@ -35,12 +35,12 @@ export class TranferRecievedUpdateComponent implements OnInit {
     lastModifiedBy: [],
     isDeleted: [],
     isActive: [],
-    transferDetails: [],
+    transfer: [],
   });
 
   constructor(
     protected tranferRecievedService: TranferRecievedService,
-    protected transferDetailsService: TransferDetailsService,
+    protected transferService: TransferService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
   ) {}
@@ -73,7 +73,7 @@ export class TranferRecievedUpdateComponent implements OnInit {
     }
   }
 
-  trackTransferDetailsById(index: number, item: ITransferDetails): number {
+  trackTransferById(index: number, item: ITransfer): number {
     return item.id!;
   }
 
@@ -110,25 +110,25 @@ export class TranferRecievedUpdateComponent implements OnInit {
       lastModifiedBy: tranferRecieved.lastModifiedBy,
       isDeleted: tranferRecieved.isDeleted,
       isActive: tranferRecieved.isActive,
-      transferDetails: tranferRecieved.transferDetails,
+      transfer: tranferRecieved.transfer,
     });
 
-    this.transferDetailsSharedCollection = this.transferDetailsService.addTransferDetailsToCollectionIfMissing(
-      this.transferDetailsSharedCollection,
-      tranferRecieved.transferDetails
+    this.transfersSharedCollection = this.transferService.addTransferToCollectionIfMissing(
+      this.transfersSharedCollection,
+      tranferRecieved.transfer
     );
   }
 
   protected loadRelationshipsOptions(): void {
-    this.transferDetailsService
+    this.transferService
       .query()
-      .pipe(map((res: HttpResponse<ITransferDetails[]>) => res.body ?? []))
+      .pipe(map((res: HttpResponse<ITransfer[]>) => res.body ?? []))
       .pipe(
-        map((transferDetails: ITransferDetails[]) =>
-          this.transferDetailsService.addTransferDetailsToCollectionIfMissing(transferDetails, this.editForm.get('transferDetails')!.value)
+        map((transfers: ITransfer[]) =>
+          this.transferService.addTransferToCollectionIfMissing(transfers, this.editForm.get('transfer')!.value)
         )
       )
-      .subscribe((transferDetails: ITransferDetails[]) => (this.transferDetailsSharedCollection = transferDetails));
+      .subscribe((transfers: ITransfer[]) => (this.transfersSharedCollection = transfers));
   }
 
   protected createFromForm(): ITranferRecieved {
@@ -150,7 +150,7 @@ export class TranferRecievedUpdateComponent implements OnInit {
       lastModifiedBy: this.editForm.get(['lastModifiedBy'])!.value,
       isDeleted: this.editForm.get(['isDeleted'])!.value,
       isActive: this.editForm.get(['isActive'])!.value,
-      transferDetails: this.editForm.get(['transferDetails'])!.value,
+      transfer: this.editForm.get(['transfer'])!.value,
     };
   }
 }

@@ -1,5 +1,5 @@
 import dayjs from 'dayjs/esm';
-import { ITransferDetails } from 'app/entities/transfer-details/transfer-details.model';
+import { ITransfer } from 'app/entities/transfer/transfer.model';
 
 export interface ITranferRecieved {
   id?: number;
@@ -14,7 +14,7 @@ export interface ITranferRecieved {
   lastModifiedBy?: string | null;
   isDeleted?: boolean | null;
   isActive?: boolean | null;
-  transferDetails?: ITransferDetails | null;
+  transfer?: ITransfer | null;
 }
 
 export class TranferRecieved implements ITranferRecieved {
@@ -31,7 +31,7 @@ export class TranferRecieved implements ITranferRecieved {
     public lastModifiedBy?: string | null,
     public isDeleted?: boolean | null,
     public isActive?: boolean | null,
-    public transferDetails?: ITransferDetails | null
+    public transfer?: ITransfer | null
   ) {
     this.isDeleted = this.isDeleted ?? false;
     this.isActive = this.isActive ?? false;

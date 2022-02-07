@@ -57,9 +57,9 @@
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityName": "transferDetails",
+      "otherEntityName": "transfer",
       "otherEntityRelationshipName": "tranferRecieved",
-      "relationshipName": "transferDetails",
+      "relationshipName": "transfer",
       "relationshipType": "many-to-one"
     }
   ],

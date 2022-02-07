@@ -49,7 +49,7 @@ public class TranferRecievedCriteria implements Serializable, Criteria {
 
     private BooleanFilter isActive;
 
-    private LongFilter transferDetailsId;
+    private LongFilter transferId;
 
     private Boolean distinct;
 
@@ -68,7 +68,7 @@ public class TranferRecievedCriteria implements Serializable, Criteria {
         this.lastModifiedBy = other.lastModifiedBy == null ? null : other.lastModifiedBy.copy();
         this.isDeleted = other.isDeleted == null ? null : other.isDeleted.copy();
         this.isActive = other.isActive == null ? null : other.isActive.copy();
-        this.transferDetailsId = other.transferDetailsId == null ? null : other.transferDetailsId.copy();
+        this.transferId = other.transferId == null ? null : other.transferId.copy();
         this.distinct = other.distinct;
     }
 
@@ -257,19 +257,19 @@ public class TranferRecievedCriteria implements Serializable, Criteria {
         this.isActive = isActive;
     }
 
-    public LongFilter getTransferDetailsId() {
-        return transferDetailsId;
+    public LongFilter getTransferId() {
+        return transferId;
     }
 
-    public LongFilter transferDetailsId() {
-        if (transferDetailsId == null) {
-            transferDetailsId = new LongFilter();
+    public LongFilter transferId() {
+        if (transferId == null) {
+            transferId = new LongFilter();
         }
-        return transferDetailsId;
+        return transferId;
     }
 
-    public void setTransferDetailsId(LongFilter transferDetailsId) {
-        this.transferDetailsId = transferDetailsId;
+    public void setTransferId(LongFilter transferId) {
+        this.transferId = transferId;
     }
 
     public Boolean getDistinct() {
@@ -302,7 +302,7 @@ public class TranferRecievedCriteria implements Serializable, Criteria {
             Objects.equals(lastModifiedBy, that.lastModifiedBy) &&
             Objects.equals(isDeleted, that.isDeleted) &&
             Objects.equals(isActive, that.isActive) &&
-            Objects.equals(transferDetailsId, that.transferDetailsId) &&
+            Objects.equals(transferId, that.transferId) &&
             Objects.equals(distinct, that.distinct)
         );
     }
@@ -322,7 +322,7 @@ public class TranferRecievedCriteria implements Serializable, Criteria {
             lastModifiedBy,
             isDeleted,
             isActive,
-            transferDetailsId,
+            transferId,
             distinct
         );
     }
@@ -343,7 +343,7 @@ public class TranferRecievedCriteria implements Serializable, Criteria {
             (lastModifiedBy != null ? "lastModifiedBy=" + lastModifiedBy + ", " : "") +
             (isDeleted != null ? "isDeleted=" + isDeleted + ", " : "") +
             (isActive != null ? "isActive=" + isActive + ", " : "") +
-            (transferDetailsId != null ? "transferDetailsId=" + transferDetailsId + ", " : "") +
+            (transferId != null ? "transferId=" + transferId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";
     }

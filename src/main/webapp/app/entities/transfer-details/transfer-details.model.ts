@@ -1,6 +1,4 @@
 import dayjs from 'dayjs/esm';
-import { ITranferDetailsApprovals } from 'app/entities/tranfer-details-approvals/tranfer-details-approvals.model';
-import { ITranferRecieved } from 'app/entities/tranfer-recieved/tranfer-recieved.model';
 import { ITransfer } from 'app/entities/transfer/transfer.model';
 
 export interface ITransferDetails {
@@ -15,8 +13,6 @@ export interface ITransferDetails {
   lastModifiedBy?: string | null;
   isDeleted?: boolean | null;
   isActive?: boolean | null;
-  tranferDetailsApprovals?: ITranferDetailsApprovals[] | null;
-  tranferRecieveds?: ITranferRecieved[] | null;
   transfer?: ITransfer | null;
 }
 
@@ -33,8 +29,6 @@ export class TransferDetails implements ITransferDetails {
     public lastModifiedBy?: string | null,
     public isDeleted?: boolean | null,
     public isActive?: boolean | null,
-    public tranferDetailsApprovals?: ITranferDetailsApprovals[] | null,
-    public tranferRecieveds?: ITranferRecieved[] | null,
     public transfer?: ITransfer | null
   ) {
     this.isDeleted = this.isDeleted ?? false;
