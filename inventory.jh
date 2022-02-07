@@ -417,8 +417,8 @@ relationship OneToMany {
 relationship OneToMany {
     Transfer to SecurityUser
 	Transfer to TransferDetails
-    TransferDetails to TranferDetailsApprovals
-    TransferDetails to TranferRecieved
+    Transfer to TranferDetailsApprovals
+    Transfer to TranferRecieved
 }
 relationship ManyToMany {
     Warehouse to SecurityUser
