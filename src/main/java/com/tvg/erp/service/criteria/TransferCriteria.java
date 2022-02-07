@@ -45,8 +45,6 @@ public class TransferCriteria implements Serializable, Criteria {
 
     private LongFilter id;
 
-    private LongFilter transferId;
-
     private InstantFilter tranferDate;
 
     private StringFilter comment;
@@ -81,7 +79,6 @@ public class TransferCriteria implements Serializable, Criteria {
 
     public TransferCriteria(TransferCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
-        this.transferId = other.transferId == null ? null : other.transferId.copy();
         this.tranferDate = other.tranferDate == null ? null : other.tranferDate.copy();
         this.comment = other.comment == null ? null : other.comment.copy();
         this.isApproved = other.isApproved == null ? null : other.isApproved.copy();
@@ -117,21 +114,6 @@ public class TransferCriteria implements Serializable, Criteria {
 
     public void setId(LongFilter id) {
         this.id = id;
-    }
-
-    public LongFilter getTransferId() {
-        return transferId;
-    }
-
-    public LongFilter transferId() {
-        if (transferId == null) {
-            transferId = new LongFilter();
-        }
-        return transferId;
-    }
-
-    public void setTransferId(LongFilter transferId) {
-        this.transferId = transferId;
     }
 
     public InstantFilter getTranferDate() {
@@ -363,7 +345,6 @@ public class TransferCriteria implements Serializable, Criteria {
         final TransferCriteria that = (TransferCriteria) o;
         return (
             Objects.equals(id, that.id) &&
-            Objects.equals(transferId, that.transferId) &&
             Objects.equals(tranferDate, that.tranferDate) &&
             Objects.equals(comment, that.comment) &&
             Objects.equals(isApproved, that.isApproved) &&
@@ -386,7 +367,6 @@ public class TransferCriteria implements Serializable, Criteria {
     public int hashCode() {
         return Objects.hash(
             id,
-            transferId,
             tranferDate,
             comment,
             isApproved,
@@ -410,7 +390,6 @@ public class TransferCriteria implements Serializable, Criteria {
     public String toString() {
         return "TransferCriteria{" +
             (id != null ? "id=" + id + ", " : "") +
-            (transferId != null ? "transferId=" + transferId + ", " : "") +
             (tranferDate != null ? "tranferDate=" + tranferDate + ", " : "") +
             (comment != null ? "comment=" + comment + ", " : "") +
             (isApproved != null ? "isApproved=" + isApproved + ", " : "") +

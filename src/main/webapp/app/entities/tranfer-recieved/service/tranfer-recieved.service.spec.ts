@@ -26,7 +26,6 @@ describe('TranferRecieved Service', () => {
     elemDefault = {
       id: 0,
       transferDate: currentDate,
-      transferId: 0,
       qtyTransfered: 0,
       qtyReceived: 0,
       comment: 'AAAAAAA',
@@ -86,7 +85,6 @@ describe('TranferRecieved Service', () => {
         {
           id: 1,
           transferDate: currentDate.format(DATE_TIME_FORMAT),
-          transferId: 1,
           qtyTransfered: 1,
           qtyReceived: 1,
           comment: 'BBBBBB',
@@ -119,11 +117,10 @@ describe('TranferRecieved Service', () => {
       const patchObject = Object.assign(
         {
           transferDate: currentDate.format(DATE_TIME_FORMAT),
-          qtyTransfered: 1,
-          comment: 'BBBBBB',
+          qtyReceived: 1,
           freeField1: 'BBBBBB',
           freeField2: 'BBBBBB',
-          isDeleted: true,
+          lastModified: currentDate.format(DATE_TIME_FORMAT),
           isActive: true,
         },
         new TranferRecieved()
@@ -151,7 +148,6 @@ describe('TranferRecieved Service', () => {
         {
           id: 1,
           transferDate: currentDate.format(DATE_TIME_FORMAT),
-          transferId: 1,
           qtyTransfered: 1,
           qtyReceived: 1,
           comment: 'BBBBBB',
@@ -218,7 +214,7 @@ describe('TranferRecieved Service', () => {
       });
 
       it('should add only unique TranferRecieved to an array', () => {
-        const tranferRecievedArray: ITranferRecieved[] = [{ id: 123 }, { id: 456 }, { id: 18171 }];
+        const tranferRecievedArray: ITranferRecieved[] = [{ id: 123 }, { id: 456 }, { id: 63764 }];
         const tranferRecievedCollection: ITranferRecieved[] = [{ id: 123 }];
         expectedResult = service.addTranferRecievedToCollectionIfMissing(tranferRecievedCollection, ...tranferRecievedArray);
         expect(expectedResult).toHaveLength(3);

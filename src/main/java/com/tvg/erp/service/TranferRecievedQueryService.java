@@ -93,9 +93,6 @@ public class TranferRecievedQueryService extends QueryService<TranferRecieved> {
             if (criteria.getTransferDate() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getTransferDate(), TranferRecieved_.transferDate));
             }
-            if (criteria.getTransferId() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getTransferId(), TranferRecieved_.transferId));
-            }
             if (criteria.getQtyTransfered() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getQtyTransfered(), TranferRecieved_.qtyTransfered));
             }

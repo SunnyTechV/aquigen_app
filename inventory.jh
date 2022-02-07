@@ -100,7 +100,6 @@ entity ConsumptionDetails{
 
  
 entity Transfer{
-   transferId Long
    tranferDate Instant
    comment String
    isApproved Boolean
@@ -117,7 +116,6 @@ entity Transfer{
  
   entity TransferDetails{
    approvalDate Instant
-   transferId Long
    //raw materialId
    //userId requester
    //Source warehouseid
@@ -135,7 +133,6 @@ entity Transfer{
   entity TranferDetailsApprovals{
     approvalDate Instant
    //raw materialId
-   transferId Long
    //userId approver's
     qtyRequested Double
     qtyApproved Double
@@ -151,7 +148,6 @@ entity Transfer{
    entity TranferRecieved{
     transferDate Instant
     //raw materialId
-    transferId Long
     //userId receiver's
     qtyTransfered Double
     qtyReceived Double

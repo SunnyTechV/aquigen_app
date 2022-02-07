@@ -14,9 +14,6 @@
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="transfer_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
             <column name="tranfer_date" type="${datetimeType}">
                 <constraints nullable="true" />
             </column>
@@ -70,7 +67,6 @@
                   tableName="transfer"
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
-            <column name="transfer_id" type="numeric"/>
             <column name="tranfer_date" type="date"/>
             <column name="comment" type="string"/>
             <column name="is_approved" type="boolean"/>

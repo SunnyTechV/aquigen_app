@@ -90,9 +90,6 @@ public class TransferQueryService extends QueryService<Transfer> {
             if (criteria.getId() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getId(), Transfer_.id));
             }
-            if (criteria.getTransferId() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getTransferId(), Transfer_.transferId));
-            }
             if (criteria.getTranferDate() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getTranferDate(), Transfer_.tranferDate));
             }

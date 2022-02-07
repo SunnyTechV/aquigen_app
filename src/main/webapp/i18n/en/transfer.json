@@ -18,7 +18,6 @@
         "title": "Transfer"
       },
       "id": "ID",
-      "transferId": "Transfer Id",
       "tranferDate": "Tranfer Date",
       "comment": "Comment",
       "isApproved": "Is Approved",

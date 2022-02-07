@@ -19,7 +19,6 @@
       },
       "id": "ID",
       "transferDate": "Transfer Date",
-      "transferId": "Transfer Id",
       "qtyTransfered": "Qty Transfered",
       "qtyReceived": "Qty Received",
       "comment": "Comment",

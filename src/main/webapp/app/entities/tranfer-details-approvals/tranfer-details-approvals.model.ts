@@ -4,7 +4,6 @@ import { ITransfer } from 'app/entities/transfer/transfer.model';
 export interface ITranferDetailsApprovals {
   id?: number;
   approvalDate?: dayjs.Dayjs | null;
-  transferId?: number | null;
   qtyRequested?: number | null;
   qtyApproved?: number | null;
   comment?: string | null;
@@ -21,7 +20,6 @@ export class TranferDetailsApprovals implements ITranferDetailsApprovals {
   constructor(
     public id?: number,
     public approvalDate?: dayjs.Dayjs | null,
-    public transferId?: number | null,
     public qtyRequested?: number | null,
     public qtyApproved?: number | null,
     public comment?: string | null,

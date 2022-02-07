@@ -25,9 +25,6 @@ public class TransferDetails implements Serializable {
     @Column(name = "approval_date")
     private Instant approvalDate;
 
-    @Column(name = "transfer_id")
-    private Long transferId;
-
     @Column(name = "qty")
     private Double qty;
 
@@ -85,19 +82,6 @@ public class TransferDetails implements Serializable {
 
     public void setApprovalDate(Instant approvalDate) {
         this.approvalDate = approvalDate;
-    }
-
-    public Long getTransferId() {
-        return this.transferId;
-    }
-
-    public TransferDetails transferId(Long transferId) {
-        this.setTransferId(transferId);
-        return this;
-    }
-
-    public void setTransferId(Long transferId) {
-        this.transferId = transferId;
     }
 
     public Double getQty() {
@@ -242,7 +226,6 @@ public class TransferDetails implements Serializable {
         return "TransferDetails{" +
             "id=" + getId() +
             ", approvalDate='" + getApprovalDate() + "'" +
-            ", transferId=" + getTransferId() +
             ", qty=" + getQty() +
             ", comment='" + getComment() + "'" +
             ", freeField1='" + getFreeField1() + "'" +

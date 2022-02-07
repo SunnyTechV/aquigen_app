@@ -38,10 +38,6 @@ class TranferRecievedResourceIT {
     private static final Instant DEFAULT_TRANSFER_DATE = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_TRANSFER_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
-    private static final Long DEFAULT_TRANSFER_ID = 1L;
-    private static final Long UPDATED_TRANSFER_ID = 2L;
-    private static final Long SMALLER_TRANSFER_ID = 1L - 1L;
-
     private static final Double DEFAULT_QTY_TRANSFERED = 1D;
     private static final Double UPDATED_QTY_TRANSFERED = 2D;
     private static final Double SMALLER_QTY_TRANSFERED = 1D - 1D;
@@ -100,7 +96,6 @@ class TranferRecievedResourceIT {
     public static TranferRecieved createEntity(EntityManager em) {
         TranferRecieved tranferRecieved = new TranferRecieved()
             .transferDate(DEFAULT_TRANSFER_DATE)
-            .transferId(DEFAULT_TRANSFER_ID)
             .qtyTransfered(DEFAULT_QTY_TRANSFERED)
             .qtyReceived(DEFAULT_QTY_RECEIVED)
             .comment(DEFAULT_COMMENT)
@@ -122,7 +117,6 @@ class TranferRecievedResourceIT {
     public static TranferRecieved createUpdatedEntity(EntityManager em) {
         TranferRecieved tranferRecieved = new TranferRecieved()
             .transferDate(UPDATED_TRANSFER_DATE)
-            .transferId(UPDATED_TRANSFER_ID)
             .qtyTransfered(UPDATED_QTY_TRANSFERED)
             .qtyReceived(UPDATED_QTY_RECEIVED)
             .comment(UPDATED_COMMENT)
@@ -157,7 +151,6 @@ class TranferRecievedResourceIT {
         assertThat(tranferRecievedList).hasSize(databaseSizeBeforeCreate + 1);
         TranferRecieved testTranferRecieved = tranferRecievedList.get(tranferRecievedList.size() - 1);
         assertThat(testTranferRecieved.getTransferDate()).isEqualTo(DEFAULT_TRANSFER_DATE);
-        assertThat(testTranferRecieved.getTransferId()).isEqualTo(DEFAULT_TRANSFER_ID);
         assertThat(testTranferRecieved.getQtyTransfered()).isEqualTo(DEFAULT_QTY_TRANSFERED);
         assertThat(testTranferRecieved.getQtyReceived()).isEqualTo(DEFAULT_QTY_RECEIVED);
         assertThat(testTranferRecieved.getComment()).isEqualTo(DEFAULT_COMMENT);
@@ -203,7 +196,6 @@ class TranferRecievedResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(tranferRecieved.getId().intValue())))
             .andExpect(jsonPath("$.[*].transferDate").value(hasItem(DEFAULT_TRANSFER_DATE.toString())))
-            .andExpect(jsonPath("$.[*].transferId").value(hasItem(DEFAULT_TRANSFER_ID.intValue())))
             .andExpect(jsonPath("$.[*].qtyTransfered").value(hasItem(DEFAULT_QTY_TRANSFERED.doubleValue())))
             .andExpect(jsonPath("$.[*].qtyReceived").value(hasItem(DEFAULT_QTY_RECEIVED.doubleValue())))
             .andExpect(jsonPath("$.[*].comment").value(hasItem(DEFAULT_COMMENT)))
@@ -228,7 +220,6 @@ class TranferRecievedResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(tranferRecieved.getId().intValue()))
             .andExpect(jsonPath("$.transferDate").value(DEFAULT_TRANSFER_DATE.toString()))
-            .andExpect(jsonPath("$.transferId").value(DEFAULT_TRANSFER_ID.intValue()))
             .andExpect(jsonPath("$.qtyTransfered").value(DEFAULT_QTY_TRANSFERED.doubleValue()))
             .andExpect(jsonPath("$.qtyReceived").value(DEFAULT_QTY_RECEIVED.doubleValue()))
             .andExpect(jsonPath("$.comment").value(DEFAULT_COMMENT))
@@ -308,110 +299,6 @@ class TranferRecievedResourceIT {
 
         // Get all the tranferRecievedList where transferDate is null
         defaultTranferRecievedShouldNotBeFound("transferDate.specified=false");
-    }
-
-    @Test
-    @Transactional
-    void getAllTranferRecievedsByTransferIdIsEqualToSomething() throws Exception {
-        // Initialize the database
-        tranferRecievedRepository.saveAndFlush(tranferRecieved);
-
-        // Get all the tranferRecievedList where transferId equals to DEFAULT_TRANSFER_ID
-        defaultTranferRecievedShouldBeFound("transferId.equals=" + DEFAULT_TRANSFER_ID);
-
-        // Get all the tranferRecievedList where transferId equals to UPDATED_TRANSFER_ID
-        defaultTranferRecievedShouldNotBeFound("transferId.equals=" + UPDATED_TRANSFER_ID);
-    }
-
-    @Test
-    @Transactional
-    void getAllTranferRecievedsByTransferIdIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        tranferRecievedRepository.saveAndFlush(tranferRecieved);
-
-        // Get all the tranferRecievedList where transferId not equals to DEFAULT_TRANSFER_ID
-        defaultTranferRecievedShouldNotBeFound("transferId.notEquals=" + DEFAULT_TRANSFER_ID);
-
-        // Get all the tranferRecievedList where transferId not equals to UPDATED_TRANSFER_ID
-        defaultTranferRecievedShouldBeFound("transferId.notEquals=" + UPDATED_TRANSFER_ID);
-    }
-
-    @Test
-    @Transactional
-    void getAllTranferRecievedsByTransferIdIsInShouldWork() throws Exception {
-        // Initialize the database
-        tranferRecievedRepository.saveAndFlush(tranferRecieved);
-
-        // Get all the tranferRecievedList where transferId in DEFAULT_TRANSFER_ID or UPDATED_TRANSFER_ID
-        defaultTranferRecievedShouldBeFound("transferId.in=" + DEFAULT_TRANSFER_ID + "," + UPDATED_TRANSFER_ID);
-
-        // Get all the tranferRecievedList where transferId equals to UPDATED_TRANSFER_ID
-        defaultTranferRecievedShouldNotBeFound("transferId.in=" + UPDATED_TRANSFER_ID);
-    }
-
-    @Test
-    @Transactional
-    void getAllTranferRecievedsByTransferIdIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        tranferRecievedRepository.saveAndFlush(tranferRecieved);
-
-        // Get all the tranferRecievedList where transferId is not null
-        defaultTranferRecievedShouldBeFound("transferId.specified=true");
-
-        // Get all the tranferRecievedList where transferId is null
-        defaultTranferRecievedShouldNotBeFound("transferId.specified=false");
-    }
-
-    @Test
-    @Transactional
-    void getAllTranferRecievedsByTransferIdIsGreaterThanOrEqualToSomething() throws Exception {
-        // Initialize the database
-        tranferRecievedRepository.saveAndFlush(tranferRecieved);
-
-        // Get all the tranferRecievedList where transferId is greater than or equal to DEFAULT_TRANSFER_ID
-        defaultTranferRecievedShouldBeFound("transferId.greaterThanOrEqual=" + DEFAULT_TRANSFER_ID);
-
-        // Get all the tranferRecievedList where transferId is greater than or equal to UPDATED_TRANSFER_ID
-        defaultTranferRecievedShouldNotBeFound("transferId.greaterThanOrEqual=" + UPDATED_TRANSFER_ID);
-    }
-
-    @Test
-    @Transactional
-    void getAllTranferRecievedsByTransferIdIsLessThanOrEqualToSomething() throws Exception {
-        // Initialize the database
-        tranferRecievedRepository.saveAndFlush(tranferRecieved);
-
-        // Get all the tranferRecievedList where transferId is less than or equal to DEFAULT_TRANSFER_ID
-        defaultTranferRecievedShouldBeFound("transferId.lessThanOrEqual=" + DEFAULT_TRANSFER_ID);
-
-        // Get all the tranferRecievedList where transferId is less than or equal to SMALLER_TRANSFER_ID
-        defaultTranferRecievedShouldNotBeFound("transferId.lessThanOrEqual=" + SMALLER_TRANSFER_ID);
-    }
-
-    @Test
-    @Transactional
-    void getAllTranferRecievedsByTransferIdIsLessThanSomething() throws Exception {
-        // Initialize the database
-        tranferRecievedRepository.saveAndFlush(tranferRecieved);
-
-        // Get all the tranferRecievedList where transferId is less than DEFAULT_TRANSFER_ID
-        defaultTranferRecievedShouldNotBeFound("transferId.lessThan=" + DEFAULT_TRANSFER_ID);
-
-        // Get all the tranferRecievedList where transferId is less than UPDATED_TRANSFER_ID
-        defaultTranferRecievedShouldBeFound("transferId.lessThan=" + UPDATED_TRANSFER_ID);
-    }
-
-    @Test
-    @Transactional
-    void getAllTranferRecievedsByTransferIdIsGreaterThanSomething() throws Exception {
-        // Initialize the database
-        tranferRecievedRepository.saveAndFlush(tranferRecieved);
-
-        // Get all the tranferRecievedList where transferId is greater than DEFAULT_TRANSFER_ID
-        defaultTranferRecievedShouldNotBeFound("transferId.greaterThan=" + DEFAULT_TRANSFER_ID);
-
-        // Get all the tranferRecievedList where transferId is greater than SMALLER_TRANSFER_ID
-        defaultTranferRecievedShouldBeFound("transferId.greaterThan=" + SMALLER_TRANSFER_ID);
     }
 
     @Test
@@ -1126,7 +1013,6 @@ class TranferRecievedResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(tranferRecieved.getId().intValue())))
             .andExpect(jsonPath("$.[*].transferDate").value(hasItem(DEFAULT_TRANSFER_DATE.toString())))
-            .andExpect(jsonPath("$.[*].transferId").value(hasItem(DEFAULT_TRANSFER_ID.intValue())))
             .andExpect(jsonPath("$.[*].qtyTransfered").value(hasItem(DEFAULT_QTY_TRANSFERED.doubleValue())))
             .andExpect(jsonPath("$.[*].qtyReceived").value(hasItem(DEFAULT_QTY_RECEIVED.doubleValue())))
             .andExpect(jsonPath("$.[*].comment").value(hasItem(DEFAULT_COMMENT)))
@@ -1185,7 +1071,6 @@ class TranferRecievedResourceIT {
         em.detach(updatedTranferRecieved);
         updatedTranferRecieved
             .transferDate(UPDATED_TRANSFER_DATE)
-            .transferId(UPDATED_TRANSFER_ID)
             .qtyTransfered(UPDATED_QTY_TRANSFERED)
             .qtyReceived(UPDATED_QTY_RECEIVED)
             .comment(UPDATED_COMMENT)
@@ -1210,7 +1095,6 @@ class TranferRecievedResourceIT {
         assertThat(tranferRecievedList).hasSize(databaseSizeBeforeUpdate);
         TranferRecieved testTranferRecieved = tranferRecievedList.get(tranferRecievedList.size() - 1);
         assertThat(testTranferRecieved.getTransferDate()).isEqualTo(UPDATED_TRANSFER_DATE);
-        assertThat(testTranferRecieved.getTransferId()).isEqualTo(UPDATED_TRANSFER_ID);
         assertThat(testTranferRecieved.getQtyTransfered()).isEqualTo(UPDATED_QTY_TRANSFERED);
         assertThat(testTranferRecieved.getQtyReceived()).isEqualTo(UPDATED_QTY_RECEIVED);
         assertThat(testTranferRecieved.getComment()).isEqualTo(UPDATED_COMMENT);
@@ -1301,10 +1185,7 @@ class TranferRecievedResourceIT {
         TranferRecieved partialUpdatedTranferRecieved = new TranferRecieved();
         partialUpdatedTranferRecieved.setId(tranferRecieved.getId());
 
-        partialUpdatedTranferRecieved
-            .lastModified(UPDATED_LAST_MODIFIED)
-            .lastModifiedBy(UPDATED_LAST_MODIFIED_BY)
-            .isDeleted(UPDATED_IS_DELETED);
+        partialUpdatedTranferRecieved.lastModifiedBy(UPDATED_LAST_MODIFIED_BY).isDeleted(UPDATED_IS_DELETED).isActive(UPDATED_IS_ACTIVE);
 
         restTranferRecievedMockMvc
             .perform(
@@ -1319,16 +1200,15 @@ class TranferRecievedResourceIT {
         assertThat(tranferRecievedList).hasSize(databaseSizeBeforeUpdate);
         TranferRecieved testTranferRecieved = tranferRecievedList.get(tranferRecievedList.size() - 1);
         assertThat(testTranferRecieved.getTransferDate()).isEqualTo(DEFAULT_TRANSFER_DATE);
-        assertThat(testTranferRecieved.getTransferId()).isEqualTo(DEFAULT_TRANSFER_ID);
         assertThat(testTranferRecieved.getQtyTransfered()).isEqualTo(DEFAULT_QTY_TRANSFERED);
         assertThat(testTranferRecieved.getQtyReceived()).isEqualTo(DEFAULT_QTY_RECEIVED);
         assertThat(testTranferRecieved.getComment()).isEqualTo(DEFAULT_COMMENT);
         assertThat(testTranferRecieved.getFreeField1()).isEqualTo(DEFAULT_FREE_FIELD_1);
         assertThat(testTranferRecieved.getFreeField2()).isEqualTo(DEFAULT_FREE_FIELD_2);
-        assertThat(testTranferRecieved.getLastModified()).isEqualTo(UPDATED_LAST_MODIFIED);
+        assertThat(testTranferRecieved.getLastModified()).isEqualTo(DEFAULT_LAST_MODIFIED);
         assertThat(testTranferRecieved.getLastModifiedBy()).isEqualTo(UPDATED_LAST_MODIFIED_BY);
         assertThat(testTranferRecieved.getIsDeleted()).isEqualTo(UPDATED_IS_DELETED);
-        assertThat(testTranferRecieved.getIsActive()).isEqualTo(DEFAULT_IS_ACTIVE);
+        assertThat(testTranferRecieved.getIsActive()).isEqualTo(UPDATED_IS_ACTIVE);
     }
 
     @Test
@@ -1345,7 +1225,6 @@ class TranferRecievedResourceIT {
 
         partialUpdatedTranferRecieved
             .transferDate(UPDATED_TRANSFER_DATE)
-            .transferId(UPDATED_TRANSFER_ID)
             .qtyTransfered(UPDATED_QTY_TRANSFERED)
             .qtyReceived(UPDATED_QTY_RECEIVED)
             .comment(UPDATED_COMMENT)
@@ -1369,7 +1248,6 @@ class TranferRecievedResourceIT {
         assertThat(tranferRecievedList).hasSize(databaseSizeBeforeUpdate);
         TranferRecieved testTranferRecieved = tranferRecievedList.get(tranferRecievedList.size() - 1);
         assertThat(testTranferRecieved.getTransferDate()).isEqualTo(UPDATED_TRANSFER_DATE);
-        assertThat(testTranferRecieved.getTransferId()).isEqualTo(UPDATED_TRANSFER_ID);
         assertThat(testTranferRecieved.getQtyTransfered()).isEqualTo(UPDATED_QTY_TRANSFERED);
         assertThat(testTranferRecieved.getQtyReceived()).isEqualTo(UPDATED_QTY_RECEIVED);
         assertThat(testTranferRecieved.getComment()).isEqualTo(UPDATED_COMMENT);

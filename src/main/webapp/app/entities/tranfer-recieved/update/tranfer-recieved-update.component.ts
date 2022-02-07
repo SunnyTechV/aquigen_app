@@ -25,7 +25,6 @@ export class TranferRecievedUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     transferDate: [],
-    transferId: [],
     qtyTransfered: [],
     qtyReceived: [],
     comment: [],
@@ -100,7 +99,6 @@ export class TranferRecievedUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: tranferRecieved.id,
       transferDate: tranferRecieved.transferDate ? tranferRecieved.transferDate.format(DATE_TIME_FORMAT) : null,
-      transferId: tranferRecieved.transferId,
       qtyTransfered: tranferRecieved.qtyTransfered,
       qtyReceived: tranferRecieved.qtyReceived,
       comment: tranferRecieved.comment,
@@ -138,7 +136,6 @@ export class TranferRecievedUpdateComponent implements OnInit {
       transferDate: this.editForm.get(['transferDate'])!.value
         ? dayjs(this.editForm.get(['transferDate'])!.value, DATE_TIME_FORMAT)
         : undefined,
-      transferId: this.editForm.get(['transferId'])!.value,
       qtyTransfered: this.editForm.get(['qtyTransfered'])!.value,
       qtyReceived: this.editForm.get(['qtyReceived'])!.value,
       comment: this.editForm.get(['comment'])!.value,

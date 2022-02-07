@@ -6,10 +6,6 @@
   "entityTableName": "transfer",
   "fields": [
     {
-      "fieldName": "transferId",
-      "fieldType": "Long"
-    },
-    {
       "fieldName": "tranferDate",
       "fieldType": "Instant"
     },

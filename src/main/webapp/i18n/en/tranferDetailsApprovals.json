@@ -19,7 +19,6 @@
       },
       "id": "ID",
       "approvalDate": "Approval Date",
-      "transferId": "Transfer Id",
       "qtyRequested": "Qty Requested",
       "qtyApproved": "Qty Approved",
       "comment": "Comment",

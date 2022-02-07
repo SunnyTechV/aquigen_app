@@ -13,8 +13,6 @@ public class TranferRecievedDTO implements Serializable {
 
     private Instant transferDate;
 
-    private Long transferId;
-
     private Double qtyTransfered;
 
     private Double qtyReceived;
@@ -49,14 +47,6 @@ public class TranferRecievedDTO implements Serializable {
 
     public void setTransferDate(Instant transferDate) {
         this.transferDate = transferDate;
-    }
-
-    public Long getTransferId() {
-        return transferId;
-    }
-
-    public void setTransferId(Long transferId) {
-        this.transferId = transferId;
     }
 
     public Double getQtyTransfered() {
@@ -166,7 +156,6 @@ public class TranferRecievedDTO implements Serializable {
         return "TranferRecievedDTO{" +
             "id=" + getId() +
             ", transferDate='" + getTransferDate() + "'" +
-            ", transferId=" + getTransferId() +
             ", qtyTransfered=" + getQtyTransfered() +
             ", qtyReceived=" + getQtyReceived() +
             ", comment='" + getComment() + "'" +

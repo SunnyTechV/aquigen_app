@@ -36,9 +36,6 @@
           <th scope="col" jhiSortBy="approvalDate">
             <span jhiTranslate="aquigenApp.tranferDetailsApprovals.approvalDate">Approval Date</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="transferId">
-            <span jhiTranslate="aquigenApp.tranferDetailsApprovals.transferId">Transfer Id</span> <fa-icon icon="sort"></fa-icon>
-          </th>
           <th scope="col" jhiSortBy="qtyRequested">
             <span jhiTranslate="aquigenApp.tranferDetailsApprovals.qtyRequested">Qty Requested</span> <fa-icon icon="sort"></fa-icon>
           </th>
@@ -78,7 +75,6 @@
             <a [routerLink]="['/tranfer-details-approvals', tranferDetailsApprovals.id, 'view']">{{ tranferDetailsApprovals.id }}</a>
           </td>
           <td>{{ tranferDetailsApprovals.approvalDate | formatMediumDatetime }}</td>
-          <td>{{ tranferDetailsApprovals.transferId }}</td>
           <td>{{ tranferDetailsApprovals.qtyRequested }}</td>
           <td>{{ tranferDetailsApprovals.qtyApproved }}</td>
           <td>{{ tranferDetailsApprovals.comment }}</td>
